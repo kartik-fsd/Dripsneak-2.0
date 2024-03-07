@@ -1,6 +1,8 @@
-import express from "express";
-import cors from "cors";
-import cookieParser from "cookie-parser";
+const express = require("express");
+const cors = require("cors");
+const cookieParser = require("cookie-parser");
+const { Register } = require("./apis/user");
+const { Login } = require("./apis/login");
 
 const app = express();
 
@@ -10,9 +12,8 @@ app.use(express.json());
 app.use(cookieParser());
 
 // Routes
-// app.post("/gauth", GoogleRegister)
-// app.post("/glogin", GoogleLogin)
-// app.use("/user", router)
+app.post("/auth/register", Register);
+app.post("/auth/login", Login);
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
