@@ -1,39 +1,11 @@
 const { PrismaClient } = require("@prisma/client");
 const { Router } = require("express");
-const jwt = require("jsonwebtoken");
+const authorizedUser = require("../../middleware/authorizeUser");
 
-const JWT_SECRET_KEY = process.env.JWT_SECRET_KEY;
 // Create a router
 const router = Router();
 
 const prisma = new PrismaClient();
-
-// Middleware to check if the user is logged in and has the "SELLER" role
-
-const authorizedUser = (req, res, next) => {
-  const token = req.cookies.authToken;
-
-  if (token) {
-    try {
-      // Verify the token
-      const decoded = jwt.verify(token, JWT_SECRET_KEY);
-      // Check if the user has the "SELLER" role
-      if (decoded && decoded.role === "SELLER") {
-        req.user = decoded; // Set the user information in the request object
-        next(); // User is logged in and has the "SELLER" role
-      } else {
-        // User is not authorized
-        res.status(403).json({ message: "Permission denied" });
-      }
-    } catch (error) {
-      // Token verification failed
-      res.status(401).json({ message: "Unauthorized" });
-    }
-  } else {
-    // No token provided
-    res.status(401).json({ message: "Unauthorized" });
-  }
-};
 
 // Create product route with authentication and authorization checks
 router.post("/create-product", authorizedUser, async (req, res) => {
@@ -52,7 +24,7 @@ router.post("/create-product", authorizedUser, async (req, res) => {
     img,
     style,
   } = req.body;
-
+  const createdById = req.user.userId;
   try {
     // Create a new product
     const product = await prisma.product.create({
@@ -69,6 +41,7 @@ router.post("/create-product", authorizedUser, async (req, res) => {
         size,
         img,
         style,
+        createdById,
       },
     });
 
