@@ -8,9 +8,25 @@ const JWT_SECRET_KEY = process.env.JWT_SECRET_KEY;
 const prisma = new PrismaClient();
 
 const Register = async (req, res) => {
-  const errors = validationResult(req); // Validate user input
+  // Validate user input using express-validator
+  const errors = validationResult(req);
+
+  // If validation errors are present
   if (!errors.isEmpty()) {
-    return res.status(400).json({ errors: errors.array() });
+    // Format validation errors in a more structured way
+    const formattedErrors = errors.array().reduce((acc, error) => {
+      // Create an array for each field if it doesn't exist
+      if (!acc[error.param]) {
+        acc[error.param] = [];
+      }
+
+      // Push the error message to the field's array
+      acc[error.param].push(error.msg);
+      return acc;
+    }, {});
+
+    // Return a 400 Bad Request status with formatted validation errors
+    return res.status(400).json({ errors: formattedErrors });
   }
 
   try {
@@ -22,7 +38,9 @@ const Register = async (req, res) => {
     });
 
     if (existingUser) {
-      return res.status(400).json({ message: "Email already exists" });
+      return res
+        .status(409)
+        .json({ success: false, message: "Email already exists" });
     }
 
     const salt = await bcrypt.genSalt(10); // Generate salt for password hashing
@@ -51,10 +69,12 @@ const Register = async (req, res) => {
     });
 
     // Return a minimal success response
-    return res.status(201).json({ message: "Registration successful" });
+    return res
+      .status(201)
+      .json({ success: true, message: "Registration successful" });
   } catch (error) {
-    console.error(error);
-    res.status(500).json({ message: "Internal server error" });
+    console.error("Internal server error:", error.message);
+    res.status(500).json({ success: false, message: "Internal server error" });
   } finally {
     await prisma.$disconnect();
   }

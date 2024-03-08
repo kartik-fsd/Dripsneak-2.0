@@ -20,12 +20,14 @@ const Login = async (req, res) => {
     });
 
     if (!existingUser) {
-      return res.status(401).json({ message: "Invalid email or password" });
+      return res.status(404).json({ message: "Invalid email or password" });
     }
 
     const passwordMatch = await bcrypt.compare(password, existingUser.password);
     if (!passwordMatch) {
-      return res.status(401).json({ message: "Invalid email or password" });
+      return res
+        .status(401)
+        .json({ success: false, message: "Invalid email or password" });
     }
 
     // Generate and set token
@@ -39,10 +41,12 @@ const Login = async (req, res) => {
     });
 
     // Return only success status and message
-    return res.status(200).json({ message: `Loged in successfully` });
+    return res
+      .status(202)
+      .json({ success: true, message: `Logged in successfully` });
   } catch (error) {
     console.error(error);
-    res.status(500).json({ message: "Internal server error" });
+    res.status(500).json({ success: false, message: "Internal server error" });
   } finally {
     await prisma.$disconnect();
   }
