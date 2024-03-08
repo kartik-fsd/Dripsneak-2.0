@@ -1,9 +1,10 @@
 const express = require("express");
 const cors = require("cors");
 const cookieParser = require("cookie-parser");
-const { Register } = require("./apis/userRegister");
-const { Login } = require("./apis/login");
-const { router } = require("./apis/logout");
+const { Register } = require("./apis/auth/userRegister");
+const { Login } = require("./apis/auth/login");
+const Logout = require("./apis/auth/logout");
+const createProduct = require("./apis/product/createProduct.js");
 
 const app = express();
 
@@ -15,7 +16,9 @@ app.use(cookieParser());
 // Routes
 app.post("/auth/register", Register);
 app.post("/auth/login", Login);
-app.use("/user", router);
+app.use("/user", Logout);
+
+app.use("/product", createProduct);
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {

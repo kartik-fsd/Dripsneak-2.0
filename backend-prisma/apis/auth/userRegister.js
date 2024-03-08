@@ -58,9 +58,13 @@ const Register = async (req, res) => {
     });
 
     // Generate and return JWT token
-    const token = jwt.sign({ userId: user.id }, JWT_SECRET_KEY, {
-      expiresIn: "1h", // Set token expiration time
-    });
+    const token = jwt.sign(
+      { userId: user.id, role: user.role },
+      JWT_SECRET_KEY,
+      {
+        expiresIn: "1h", // Set token expiration time
+      }
+    );
     res.cookie("authToken", token, {
       httpOnly: true,
       secure: process.env.NODE_ENV === "production", // Set secure flag in production

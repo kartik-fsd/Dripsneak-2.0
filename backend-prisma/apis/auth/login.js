@@ -18,7 +18,6 @@ const Login = async (req, res) => {
     const existingUser = await prisma.user.findUnique({
       where: { email: email },
     });
-
     if (!existingUser) {
       return res.status(404).json({ message: "Invalid email or password" });
     }
@@ -31,9 +30,13 @@ const Login = async (req, res) => {
     }
 
     // Generate and set token
-    const token = jwt.sign({ userId: existingUser.id }, JWT_SECRET_KEY, {
-      expiresIn: "1h", // Set token expiration
-    });
+    const token = jwt.sign(
+      { userId: existingUser.id, role: existingUser.role },
+      JWT_SECRET_KEY,
+      {
+        expiresIn: "1h", // Set token expiration
+      }
+    );
     res.cookie("authToken", token, {
       httpOnly: true,
       secure: process.env.NODE_ENV === "production", // Set in production
@@ -43,7 +46,7 @@ const Login = async (req, res) => {
     // Return only success status and message
     return res
       .status(202)
-      .json({ success: true, message: `Logged in successfully` });
+      .json({ success: true, message: `Logged in successfully`, token });
   } catch (error) {
     console.error(error);
     res.status(500).json({ success: false, message: "Internal server error" });
