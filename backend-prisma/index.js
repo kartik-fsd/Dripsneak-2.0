@@ -8,6 +8,7 @@ const createProduct = require("./apis/product/createProduct.js");
 const fetchAll = require("./apis/product/allProduct.js");
 const createMultipleProduct = require("./apis/product/multipleProductCreation.js");
 const fetchCategoryWise = require("./apis/product/category.js");
+const editProductDetails = require("./apis/product/editProduct.js");
 
 const app = express();
 
@@ -31,6 +32,9 @@ app.use("/product", fetchAll);
 
 //fetch speicfied category product api
 app.use("/product", fetchCategoryWise);
+
+//edit the speicfied product api
+app.use("/product", editProductDetails);
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
