@@ -1,6 +1,6 @@
 const { PrismaClient } = require("@prisma/client");
 const { Router } = require("express");
-const authorizedUser = require("../../middleware/authorizeUser");
+const authorizedSeller = require("../../middleware/authorizeSeller");
 
 // Create a router
 const router = Router();
@@ -8,7 +8,7 @@ const router = Router();
 const prisma = new PrismaClient();
 
 // Create product route with authentication and authorization checks
-router.post("/create-product", authorizedUser, async (req, res) => {
+router.post("/create-product", authorizedSeller, async (req, res) => {
   // Extract product details from the request body
   const {
     name,
