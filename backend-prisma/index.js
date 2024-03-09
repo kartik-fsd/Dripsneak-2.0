@@ -11,6 +11,8 @@ const fetchCategoryWise = require("./apis/product/category.js");
 const editProductDetails = require("./apis/product/editProduct.js");
 const deleteProduct = require("./apis/product/deleteProduct.js");
 
+const addReview = require("./apis/product/addReview.js");
+
 const app = express();
 
 // Middleware
@@ -39,6 +41,9 @@ app.use("/product", editProductDetails);
 
 //delete the speicfied product api
 app.use("/product", deleteProduct);
+
+//create a new review for the specified product
+app.use("/product", addReview);
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
