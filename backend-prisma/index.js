@@ -12,6 +12,7 @@ const editProductDetails = require("./apis/product/editProduct.js");
 const deleteProduct = require("./apis/product/deleteProduct.js");
 
 const addReview = require("./apis/product/addReview.js");
+const fetchReview = require("./apis/product/fetchProductReview.js");
 
 const app = express();
 
@@ -44,6 +45,9 @@ app.use("/product", deleteProduct);
 
 //create a new review for the specified product
 app.use("/product", addReview);
+
+//fetch all product review of specified product
+app.use("/product", fetchReview);
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {

@@ -38,6 +38,23 @@ router.post("/review/:productId", authorizedUser, async (req, res) => {
       },
     });
 
+    // Update product's rating and review count
+    const reviews = await prisma.review.findMany({
+      where: { productId },
+    });
+
+    const totalRating = reviews.reduce((sum, review) => sum + review.rating, 0);
+    const averageRating = totalRating / reviews.length;
+
+    // Update the product with the new rating and review count
+    await prisma.product.update({
+      where: { id: productId },
+      data: {
+        rating: parseFloat(averageRating.toFixed(2)),
+        reviews: reviews.length,
+      },
+    });
+
     // Return success response
     res.status(201).json({
       success: true,
