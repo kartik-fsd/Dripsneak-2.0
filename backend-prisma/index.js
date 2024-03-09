@@ -7,6 +7,7 @@ const Logout = require("./apis/auth/logout");
 const createProduct = require("./apis/product/createProduct.js");
 const fetchAll = require("./apis/product/allProduct.js");
 const createMultipleProduct = require("./apis/product/multipleProductCreation.js");
+const fetchCategoryWise = require("./apis/product/category.js");
 
 const app = express();
 
@@ -27,6 +28,9 @@ app.use("/product", createMultipleProduct);
 
 //fetch all product api
 app.use("/product", fetchAll);
+
+//fetch speicfied category product api
+app.use("/product", fetchCategoryWise);
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
