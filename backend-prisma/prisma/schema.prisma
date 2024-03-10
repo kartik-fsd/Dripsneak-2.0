@@ -53,7 +53,7 @@ model Product {
   description       String
   trending          Boolean
   size              Size[]
-  img               String
+  img               String[]
   style             Style?
   createdBy         User     @relation(fields: [createdById], references: [id])
   createdById       String
@@ -78,7 +78,8 @@ model Review {
   productId String
   userId    String
   rating    Float
-  content   String
+  content   String?
+  reviewImg String[]
   createdAt DateTime @default(now())
   product   Product  @relation(fields: [productId], references: [id], name: "ReviewsOnProduct")
   user      User     @relation(fields: [userId], references: [id], name: "ReviewsByUser")

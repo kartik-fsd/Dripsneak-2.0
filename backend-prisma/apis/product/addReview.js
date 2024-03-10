@@ -16,7 +16,7 @@ router.post("/review/:productId", authorizedUser, async (req, res) => {
   const userId = req.user.userId;
 
   // Extract product details from the request body
-  const { rating, content } = req.body;
+  const { rating, content, reviewImg } = req.body;
 
   try {
     // Create a new review for a product
@@ -35,6 +35,7 @@ router.post("/review/:productId", authorizedUser, async (req, res) => {
         userId,
         rating,
         content,
+        reviewImg,
       },
     });
 
