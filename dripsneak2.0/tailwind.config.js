@@ -2,7 +2,11 @@
 export default {
   content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
   theme: {
-    extend: {},
+    extend: {
+      gridTemplateRows: {
+        "[auto,auto,1fr]": "auto auto 1fr",
+      },
+    },
     colors: {
       rhino: {
         50: "#f2f6fc",
@@ -45,5 +49,5 @@ export default {
       },
     },
   },
-  plugins: [],
+  plugins: ["/aspect-ratio", "/forms", "/aspect-ratio"],
 };
