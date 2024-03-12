@@ -17,13 +17,7 @@ const user = {
   imageUrl:
     "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80",
 };
-const navigation = [
-  { name: "Dashboard", href: "/", current: true },
-  //   { name: "Team", href: "#", current: false },
-  //   { name: "Projects", href: "#", current: false },
-  //   { name: "Calendar", href: "#", current: false },
-  //   { name: "Reports", href: "#", current: false },
-];
+const navigation = [{ name: "Dripsneak", href: "/", current: true }];
 const userNavigation = [
   { name: "Cart", href: "#" },
   { name: "Liked Items", href: "#" },
@@ -40,14 +34,6 @@ export default function Dashboard() {
   const [openCart, setOpen] = useState(false);
   return (
     <>
-      {/*
-        This Dashboard requires updating your template:
-
-        ```
-        <html class="h-full bg-rhino-100">
-        <body class="h-full">
-        ```
-      */}
       <div className="min-h-full">
         <Disclosure as="nav" className="bg-rhino-800">
           {({ open }) => (
@@ -62,24 +48,50 @@ export default function Dashboard() {
                         alt="Your Company"
                       />
                     </div>
-                    <div className="hidden md:block">
-                      <div className="ml-10 flex items-baseline space-x-4">
+                    <>
+                      <div className="ml-2  items-center justify-center space-x-1 flex-grow md:flex-shrink-0 hidden md:block">
                         {navigation.map((item) => (
                           <Link
                             key={item.name}
                             to={item.href}
-                            className={classNames(
-                              item.current
-                                ? "bg-rhino-900 text-scorpion-200"
-                                : "text-rhino-300 hover:bg-rhino-700 hover:text-scorpion-50",
-                              "rounded-md px-3 py-2 text-sm font-medium"
-                            )}
+                            className="text-rhino-300 px-3 py-2 text-xl font-medium"
                             aria-current={item.current ? "page" : undefined}
                           >
                             {item.name}
                           </Link>
                         ))}
                       </div>
+                    </>
+                  </div>
+
+                  {/* Search Bar */}
+                  <div className="flex">
+                    <div className="pt-2 relative mx-auto text-gray-600 ml-4  md:ml-6">
+                      <input
+                        className="border-2 border-gray-300 bg-scorpion-100 text-scorpion-700 h-10 px-5 pr-16 rounded-lg text-sm focus:outline-none border-none w-full md:w-64"
+                        type="search"
+                        name="search"
+                        placeholder="Search"
+                      />
+                      <button
+                        type="submit"
+                        className="absolute right-0 top-0 mt-5 mr-4"
+                      >
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          fill="none"
+                          viewBox="0 0 24 24"
+                          strokeWidth={2}
+                          stroke="currentColor"
+                          className="text-scorpion-950 h-4 w-5"
+                        >
+                          <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z"
+                          />
+                        </svg>
+                      </button>
                     </div>
                   </div>
                   <div className="hidden md:block">
@@ -243,16 +255,7 @@ export default function Dashboard() {
         </Disclosure>
 
         <Cart open={openCart} setOpen={setOpen} />
-        {/* 
-        <header className="bg-scorpion-50 shadow">
-          <div className="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
-            <h1 className="text-3xl font-bold tracking-tight text-rhino-900">
-              Dashboard
-            </h1>
-          </div>
-        </header> */}
         <main>
-          {/* Your content */}
           <SideCategory />
         </main>
       </div>

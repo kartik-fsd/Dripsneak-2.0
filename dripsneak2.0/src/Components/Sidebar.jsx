@@ -18,47 +18,30 @@ const sortOptions = [
   { name: "Price: High to Low", href: "#", current: false },
 ];
 
-// const subCategories = [
-//   { name: "Totes", href: "#" },
-//   { name: "Backpacks", href: "#" },
-//   { name: "Travel Bags", href: "#" },
-//   { name: "Hip Bags", href: "#" },
-//   { name: "Laptop Sleeves", href: "#" },
-// ];
 const filters = [
-  {
-    id: "color",
-    name: "Color",
-    options: [
-      { value: "scorpion-50", label: "scorpion-50", checked: false },
-      { value: "beige", label: "Beige", checked: false },
-      { value: "blue", label: "Blue", checked: true },
-      { value: "brown", label: "Brown", checked: false },
-      { value: "green", label: "Green", checked: false },
-      { value: "purple", label: "Purple", checked: false },
-    ],
-  },
   {
     id: "category",
     name: "Category",
     options: [
-      { value: "new-arrivals", label: "New Arrivals", checked: false },
-      { value: "sale", label: "Sale", checked: false },
-      { value: "travel", label: "Travel", checked: true },
-      { value: "organization", label: "Organization", checked: false },
-      { value: "accessories", label: "Accessories", checked: false },
+      { value: "male", label: "Men", checked: false },
+      { value: "female", label: "Women", checked: false },
+      { value: "Kids", label: "Kid's", checked: false },
+      { value: "unisex", label: "Unisex", checked: true },
     ],
   },
   {
     id: "size",
     name: "Size",
     options: [
-      { value: "2l", label: "2L", checked: false },
-      { value: "6l", label: "6L", checked: false },
-      { value: "12l", label: "12L", checked: false },
-      { value: "18l", label: "18L", checked: false },
-      { value: "20l", label: "20L", checked: false },
-      { value: "40l", label: "40L", checked: true },
+      { value: "US_5", label: "US 5", checked: false },
+      { value: "US_6", label: "US 6", checked: false },
+      { value: "US_7", label: "US 7", checked: false },
+      { value: "US_8", label: "US 8", checked: false },
+      { value: "US_9", label: "US 9", checked: false },
+      { value: "US_10", label: "US 10", checked: false },
+      { value: "US_11", label: "US 11", checked: false },
+      { value: "US_12", label: "US 12", checked: false },
+      { value: "US_13", label: "US 13", checked: false },
     ],
   },
 ];
@@ -119,20 +102,6 @@ export default function SideCategory() {
 
                   {/* Filters */}
                   <form className="mt-4 border-t border-scorpion-200">
-                    {/* <h3 className="sr-only">Categories</h3>
-                    <ul
-                      role="list"
-                      className="px-2 py-3 font-medium text-scorpion-900"
-                    >
-                      {subCategories.map((category) => (
-                        <li key={category.name}>
-                          <a href={category.href} className="block px-2 py-3">
-                            {category.name}
-                          </a>
-                        </li>
-                      ))}
-                    </ul> */}
-
                     {filters.map((section) => (
                       <Disclosure
                         as="div"
@@ -198,7 +167,7 @@ export default function SideCategory() {
         </Transition.Root>
 
         <main className="mx-auto max-w-7xl px-2 sm:px-3 lg:px-4">
-          <div className="flex items-baseline justify-between border-b border-scorpion-200 pb-6 pt-8">
+          <div className="flex items-baseline justify-between border-b border-scorpion-200 py-4">
             <h1 className="text-4xl font-bold tracking-tight text-scorpion-900">
               New Arrivals
             </h1>
@@ -275,18 +244,6 @@ export default function SideCategory() {
             <div className="grid grid-cols-1 gap-x-8 gap-y-10 lg:grid-cols-4">
               {/* Filters */}
               <form className="hidden lg:block ">
-                {/* <h3 className="sr-only">Categories</h3>
-                <ul
-                  role="list"
-                  className="space-y-4 border-b border-scorpion-200 pb-6 text-sm font-medium text-scorpion-900"
-                >
-                  {subCategories.map((category) => (
-                    <li key={category.name}>
-                      <a href={category.href}>{category.name}</a>
-                    </li>
-                  ))}
-                </ul> */}
-
                 {filters.map((section) => (
                   <Disclosure
                     as="div"

@@ -2,8 +2,8 @@ import { Link, useNavigate } from "react-router-dom";
 import { Formik } from "formik";
 import PasswordField from "../Components/passwordField";
 import InputBar from "../Components/inputBar";
-import axios from "axios";
 import { showErrorToast, showSuccessToast } from "../Components/Toast";
+import { useMutation } from "@tanstack/react-query";
 
 // eslint-disable-next-line react/prop-types
 export const ErrorComponent = ({ error }) => (
@@ -12,6 +12,15 @@ export const ErrorComponent = ({ error }) => (
 
 export default function Register() {
   const navigate = useNavigate();
+  const mutation = useMutation((values) =>
+    fetch("http://localhost:3000/auth/register", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(values),
+    })
+  );
   return (
     <>
       <div className="flex min-h-full flex-1 flex-col justify-center pb-6 pt-2 lg:px-8">
@@ -56,26 +65,25 @@ export default function Register() {
               }
               return errors;
             }}
-            onSubmit={(values, { setSubmitting, resetForm }) => {
+            onSubmit={async (values, { setSubmitting, resetForm }) => {
               // eslint-disable-next-line no-unused-vars
               const { confirmPassword, ...requestData } = values;
-              axios
-                .post("http://localhost:3000/auth/register", requestData)
-                .then((response) => {
-                  showSuccessToast(response.data.message);
-                  setTimeout(() => {
-                    resetForm();
-                    navigate("/");
-                  }, 800);
-                })
-                .catch((error) => {
-                  // Handle error responses from the backend
-                  showErrorToast(error.response.data.message);
-                })
-                .finally(() => {
-                  // Reset submitting state regardless of success or failure
-                  setSubmitting(false);
-                });
+              try {
+                const response = await mutation.mutateAsync(requestData);
+                showSuccessToast(response.data.message);
+                setTimeout(() => {
+                  resetForm();
+                  navigate("/");
+                }, 800);
+              } catch (error) {
+                // Handle error responses from the backend
+                showErrorToast(
+                  error.response?.data?.message || "An error occurred"
+                );
+              } finally {
+                // Reset submitting state regardless of success or failure
+                setSubmitting(false);
+              }
             }}
           >
             {({
