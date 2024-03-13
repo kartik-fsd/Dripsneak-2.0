@@ -2,8 +2,9 @@ import { Link, useNavigate } from "react-router-dom";
 import { Formik } from "formik";
 import PasswordField from "../Components/passwordField";
 import InputBar from "../Components/inputBar";
+import axios from "axios";
 import { showErrorToast, showSuccessToast } from "../Components/Toast";
-import { useMutation } from "@tanstack/react-query";
+import { RoleAuth } from "../utils/tokenRoleAuth.js";
 
 // eslint-disable-next-line react/prop-types
 export const ErrorComponent = ({ error }) => (
@@ -12,15 +13,6 @@ export const ErrorComponent = ({ error }) => (
 
 export default function Register() {
   const navigate = useNavigate();
-  const mutation = useMutation((values) =>
-    fetch("http://localhost:3000/auth/register", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(values),
-    })
-  );
   return (
     <>
       <div className="flex min-h-full flex-1 flex-col justify-center pb-6 pt-2 lg:px-8">
@@ -65,25 +57,27 @@ export default function Register() {
               }
               return errors;
             }}
-            onSubmit={async (values, { setSubmitting, resetForm }) => {
+            onSubmit={(values, { setSubmitting, resetForm }) => {
               // eslint-disable-next-line no-unused-vars
               const { confirmPassword, ...requestData } = values;
-              try {
-                const response = await mutation.mutateAsync(requestData);
-                showSuccessToast(response.data.message);
-                setTimeout(() => {
-                  resetForm();
-                  navigate("/");
-                }, 800);
-              } catch (error) {
-                // Handle error responses from the backend
-                showErrorToast(
-                  error.response?.data?.message || "An error occurred"
-                );
-              } finally {
-                // Reset submitting state regardless of success or failure
-                setSubmitting(false);
-              }
+              axios
+                .post("http://localhost:3000/auth/register", requestData)
+                .then((response) => {
+                  showSuccessToast(response.data.message);
+                  RoleAuth(response.data.token);
+                  setTimeout(() => {
+                    resetForm();
+                    navigate("/sneakers");
+                  }, 800);
+                })
+                .catch((error) => {
+                  // Handle error responses from the backend
+                  showErrorToast(error.response.data.message);
+                })
+                .finally(() => {
+                  // Reset submitting state regardless of success or failure
+                  setSubmitting(false);
+                });
             }}
           >
             {({
@@ -186,7 +180,7 @@ export default function Register() {
                   <div>
                     <button
                       type="submit"
-                      className="flex w-full justify-center rounded-md text-rhino-50 bg-rhino-600  px-3  py-2 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-rhino-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-rhino-600"
+                      className="flex w-full justify-center text-rhino-50 rounded-md bg-rhino-600  px-3  py-2 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-rhino-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-rhino-600"
                     >
                       Create Account
                     </button>

@@ -5,6 +5,7 @@ import InputBar from "../Components/inputBar";
 import { ErrorComponent } from "./SignUp";
 import axios from "axios";
 import { showErrorToast, showSuccessToast } from "../Components/Toast";
+import { RoleAuth } from "../utils/tokenRoleAuth.js";
 
 export const SellerRegister = () => {
   const navigate = useNavigate();
@@ -59,9 +60,10 @@ export const SellerRegister = () => {
                 .post("http://localhost:3000/auth/register", requestData)
                 .then((response) => {
                   showSuccessToast(response.data.message);
+                  RoleAuth(response.data.token);
                   setTimeout(() => {
                     resetForm();
-                    navigate("/");
+                    navigate("/sneakers");
                   }, 800);
                 })
                 .catch((error) => {
