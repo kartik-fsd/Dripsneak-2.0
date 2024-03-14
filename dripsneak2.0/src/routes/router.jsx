@@ -5,7 +5,7 @@ import { SellerRegister } from "../pages/sellerRegister";
 import Home from "../pages/Home";
 import Dashboard from "../pages/Dashboard";
 import ProductOverview from "../pages/ProductOverview";
-import AddProduct from "../pages/dashboard-Pages/AddProduct";
+import ProductForm from "../pages/dashboard-Pages/add-products";
 
 export const Routers = () => {
   const authRole = localStorage.getItem("role");
@@ -20,7 +20,7 @@ export const Routers = () => {
         <Route path="/sneakers" element={<Dashboard />} />
         <Route path="/product-overview" element={<ProductOverview />} />
         {authRole === "SELLER" ? (
-          <Route path="/add-products" element={<AddProduct />} />
+          <Route path="/add-products" element={<ProductForm />} />
         ) : (
           <Route
             path="/unauthorized"
