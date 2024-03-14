@@ -14,7 +14,7 @@ function AddProductCheckBox({ label, name, id }) {
         type="checkbox"
         id={id}
         name={name}
-        className="rounded border-scorpion-300 h-5 w-5 focus:ring-indigo-500 focus:ring-offset-0 focus:outline-none"
+        className="rounded border-scorpion-300 h-5 w-5 focus:ring-rhino-500 focus:ring-offset-0 focus:outline-none"
       />
       <ErrorMessage
         name={id}
