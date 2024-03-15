@@ -3,6 +3,8 @@ import AddproductInputs from "../../Components/AddproductInputs";
 import AddProductCheckBox from "../../Components/AddProductCheckBox";
 import AddProductsDropsown from "../../Components/AddProductsDropsown";
 import Addproduct2 from "./add-product2";
+import { showErrorToast, showSuccessToast } from "../../Components/Toast";
+import axios from "axios";
 
 const initialValues = {
   name: "",
@@ -59,10 +61,34 @@ const ProductForm = () => {
     label: value,
   }));
 
-  const handleSubmit = (values, { setSubmitting }) => {
+  const handleSubmit = (values, { setSubmitting, resetForm }) => {
     // Handle form submission
-    console.log(values);
-    setSubmitting(false);
+    console.log(values, localStorage.getItem("auth-token"));
+    // setCloudinaryUrls([]); // Clear cloudinaryUrls
+    const header = {
+      withCredentials: true,
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${localStorage.getItem("auth-token")}`,
+      },
+    };
+
+    axios
+      .post("http://localhost:3000/product/create-product", values, header)
+      .then((response) => {
+        showSuccessToast(response.data.message);
+        setTimeout(() => {
+          resetForm();
+        }, 800);
+      })
+      .catch((error) => {
+        // Handle error responses from the backend
+        showErrorToast(error.response?.data?.message);
+      })
+      .finally(() => {
+        // Reset submitting state regardless of success or failure
+        setSubmitting(false);
+      });
   };
 
   return (
@@ -73,10 +99,10 @@ const ProductForm = () => {
         onSubmit={handleSubmit}
       >
         {({ isSubmitting }) => (
-          <main className="px-8 pt-6 pb-8 mb-4 grid grid-cols-1 md:grid-cols-2 gap-4">
-            <div className="max-w-md mx-auto p-6 bg-rhino-50 rounded-lg shadow-md ">
-              <h2 className="text-xl font-semibold mb-4">Product Form</h2>
-              <Form>
+          <>
+            <Form className="px-8 pt-6 pb-8 mb-4 grid grid-cols-1 md:grid-cols-2 gap-3">
+              <div className="max-w-md mx-auto p-6 bg-rhino-50 rounded-lg shadow-md ">
+                <h2 className="text-xl font-semibold mb-4">Product Form</h2>
                 <AddproductInputs
                   label="Sneaker Name"
                   id="name"
@@ -155,18 +181,17 @@ const ProductForm = () => {
                     categoryOptions={styleOptions}
                   />
                 </section>
-
-                <button
-                  type="submit"
-                  className="w-full bg-rhino-700 text-scorpion-50 py-2 px-4 rounded-md font-semibold uppercase tracking-wide disabled:bg-scorpion-400 disabled:cursor-not-allowed"
-                  disabled={isSubmitting}
-                >
-                  {isSubmitting ? "Submitting..." : "Submit"}
-                </button>
-              </Form>
-            </div>
-            <Addproduct2 />
-          </main>
+              </div>
+              <Addproduct2 />
+              <button
+                type="submit"
+                className="w-max flex bg-rhino-700 text-scorpion-50 py-2 px-4 rounded-md font-semibold uppercase tracking-wide disabled:bg-scorpion-400 disabled:cursor-not-allowed"
+                disabled={isSubmitting}
+              >
+                {isSubmitting ? "Submitting..." : "Submit"}
+              </button>
+            </Form>
+          </>
         )}
       </Formik>
     </main>

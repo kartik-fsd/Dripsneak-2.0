@@ -3,7 +3,7 @@ const jwt = require("jsonwebtoken");
 
 const JWT_SECRET_KEY = process.env.JWT_SECRET_KEY;
 
-const authorizedUser = (req, res, next) => {
+const authorizedSeller = (req, res, next) => {
   const token = req.cookies.authToken;
 
   if (token) {
@@ -28,4 +28,4 @@ const authorizedUser = (req, res, next) => {
   }
 };
 
-module.exports = authorizedUser;
+module.exports = authorizedSeller;

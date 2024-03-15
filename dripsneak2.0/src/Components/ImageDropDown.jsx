@@ -1,30 +1,90 @@
+import axios from "axios";
+import Compressor from "compressorjs";
 import { useState } from "react";
+import { showErrorToast, showSuccessToast } from "./Toast";
+import { useFormikContext } from "formik";
 
 const ImageDropDown = () => {
-  const [files, setFile] = useState([]);
-  const [message, setMessage] = useState();
-  const handleFile = (e) => {
-    setMessage("");
-    let file = e.target.files;
+  const [files, setFiles] = useState([]);
+  const [message, setMessage] = useState("");
+  const [loading, setLoading] = useState(false);
+  const { setFieldValue } = useFormikContext();
 
-    for (let i = 0; i < file.length; i++) {
-      const fileType = file[i]["type"];
-      const validImageTypes = [
-        "image/gif",
-        "image/jpeg",
-        "image/png",
-        "image/webp",
-      ];
-      if (validImageTypes.includes(fileType)) {
-        setFile([...files, file[i]]);
+  const handleFile = async (e) => {
+    setMessage("");
+    const selectedFiles = e.target.files;
+    const validImageTypes = [
+      "image/gif",
+      "image/jpeg",
+      "image/png",
+      "image/webp",
+    ];
+    const newFiles = [];
+
+    for (let i = 0; i < selectedFiles.length; i++) {
+      if (validImageTypes.includes(selectedFiles[i].type)) {
+        newFiles.push(selectedFiles[i]);
       } else {
-        setMessage("only images accepted");
+        setMessage("Only images are accepted");
       }
     }
+
+    setFiles([...files, ...newFiles]);
   };
 
-  const removeImage = (i) => {
-    setFile(files.filter((x) => x.name !== i));
+  const removeImage = (name) => {
+    setFiles(files.filter((file) => file.name !== name));
+  };
+
+  const compressAndUploadImages = async () => {
+    setLoading(true);
+    try {
+      const compressed = await Promise.all(
+        files.map((file) => {
+          return new Promise((resolve) => {
+            new Compressor(file, {
+              quality: 0.6,
+              success: (result) => {
+                resolve(result);
+              },
+              error: (err) => {
+                console.error(err.message);
+                resolve(file); // fallback to the original file if compression fails
+              },
+            });
+          });
+        })
+      );
+
+      // Upload compressed images to Cloudinary
+      const cloudinaryUrls = await Promise.all(
+        compressed.map(async (file) => {
+          const formData = new FormData();
+          formData.append("file", file);
+          formData.append("upload_preset", "dripnseak_preset_");
+
+          const response = await axios.post(
+            "https://api.cloudinary.com/v1_1/drinpsneak/image/upload",
+            formData,
+            {
+              headers: {
+                "Content-Type": "multipart/form-data",
+              },
+            }
+          );
+
+          return response.data.secure_url;
+        })
+      );
+      setFieldValue("img", cloudinaryUrls);
+      showSuccessToast("Images uploaded successfully");
+    } catch (error) {
+      console.error("Error uploading images:", error);
+      showErrorToast("Error uploading images");
+    } finally {
+      setLoading(false);
+      setFiles([]);
+    }
   };
 
   return (
@@ -59,7 +119,7 @@ const ImageDropDown = () => {
                   onChange={handleFile}
                   className="opacity-0"
                   multiple
-                  name="files[]"
+                  name="files"
                 />
               </label>
               <div className="flex flex-wrap gap-2 mt-2">
@@ -97,6 +157,13 @@ const ImageDropDown = () => {
           </div>
         </div>
       </div>
+      <button
+        type="button"
+        onClick={compressAndUploadImages}
+        className="mt-4 bg-rhino-500 text-rhino-50 rounded-md py-2 px-4 hover:bg-rhino-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-rhino-500"
+      >
+        {loading ? "uploading..." : "Upload Images"}
+      </button>
     </>
   );
 };

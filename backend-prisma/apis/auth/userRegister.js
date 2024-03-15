@@ -75,7 +75,7 @@ const Register = async (req, res) => {
     // Return a minimal success response
     return res
       .status(201)
-      .json({ success: true, message: "Registration successful" });
+      .json({ success: true, message: "Registration successful", token });
   } catch (error) {
     console.error("Internal server error:", error.message);
     res.status(500).json({ success: false, message: "Internal server error" });

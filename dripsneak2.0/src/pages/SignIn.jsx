@@ -5,7 +5,7 @@ import PasswordField from "../Components/passwordField";
 import { Formik } from "formik";
 import { showErrorToast, showSuccessToast } from "../Components/Toast";
 import axios from "axios";
-import { RoleAuth } from "../utils/tokenRoleAuth.js";
+import { RoleAuth } from "../utils/tokenRoleAuth";
 
 export default function SignIn() {
   const navigate = useNavigate();
@@ -45,6 +45,7 @@ export default function SignIn() {
                 .then((response) => {
                   showSuccessToast(response.data.message);
                   RoleAuth(response.data.token);
+                  document.cookie = `authToken=${response.data.token}; path=/`;
                   setTimeout(() => {
                     resetForm();
                     navigate("/sneakers");

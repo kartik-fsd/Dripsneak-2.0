@@ -17,7 +17,12 @@ const fetchReview = require("./apis/product/fetchProductReview.js");
 const app = express();
 
 // Middleware
-app.use(cors());
+app.use(
+  cors({
+    origin: "http://localhost:5173", // Specify the allowed origin
+    credentials: true, // Allow credentials (cookies, authorization headers)
+  })
+);
 app.use(express.json());
 app.use(cookieParser());
 

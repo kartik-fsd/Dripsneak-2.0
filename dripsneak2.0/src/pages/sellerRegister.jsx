@@ -5,7 +5,7 @@ import InputBar from "../Components/inputBar";
 import { ErrorComponent } from "./SignUp";
 import axios from "axios";
 import { showErrorToast, showSuccessToast } from "../Components/Toast";
-import { RoleAuth } from "../utils/tokenRoleAuth.js";
+import { RoleAuth } from "../utils/tokenRoleAuth";
 
 export const SellerRegister = () => {
   const navigate = useNavigate();
@@ -61,6 +61,7 @@ export const SellerRegister = () => {
                 .then((response) => {
                   showSuccessToast(response.data.message);
                   RoleAuth(response.data.token);
+                  localStorage.setItem("auth-token", response.data.token);
                   setTimeout(() => {
                     resetForm();
                     navigate("/sneakers");
@@ -68,7 +69,8 @@ export const SellerRegister = () => {
                 })
                 .catch((error) => {
                   // Handle error responses from the backend
-                  showErrorToast(error.response.data.message);
+                  showErrorToast(error.response?.data?.message);
+                  console.log(error);
                 })
                 .finally(() => {
                   // Reset submitting state regardless of success or failure

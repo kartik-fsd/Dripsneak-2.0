@@ -4,7 +4,7 @@ import PasswordField from "../Components/passwordField";
 import InputBar from "../Components/inputBar";
 import axios from "axios";
 import { showErrorToast, showSuccessToast } from "../Components/Toast";
-import { RoleAuth } from "../utils/tokenRoleAuth.js";
+import { RoleAuth } from "../utils/tokenRoleAuth";
 
 // eslint-disable-next-line react/prop-types
 export const ErrorComponent = ({ error }) => (
@@ -65,6 +65,7 @@ export default function Register() {
                 .then((response) => {
                   showSuccessToast(response.data.message);
                   RoleAuth(response.data.token);
+                  localStorage.setItem("auth-token", response.data.token);
                   setTimeout(() => {
                     resetForm();
                     navigate("/sneakers");
