@@ -48,7 +48,7 @@ export default function ProductList() {
         <div className=" grid grid-cols-1 gap-x-5 gap-y-10 sm:grid-cols-2 lg:grid-cols-3 xl:gap-x-8">
           {productData?.products?.map((product) => (
             <div key={product.id} className="group relative">
-              <div className="aspect-h-1 aspect-w-1 w-full overflow-hidden rounded-md bg-scorpion-200 lg:aspect-none group-hover:opacity-75 lg:h-80">
+              <div className="aspect-h-1 aspect-w-1 w-full overflow-hidden rounded-md bg-rhino-50 lg:aspect-none group-hover:opacity-75 lg:h-80">
                 <img
                   src={product.img[0]}
                   alt={product.name}

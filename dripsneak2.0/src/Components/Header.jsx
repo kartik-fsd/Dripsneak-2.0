@@ -8,8 +8,8 @@ import {
   ShoppingCartIcon,
 } from "@heroicons/react/24/outline";
 import { Link } from "react-router-dom";
-import Cart from "./dashboard-Pages/Cart";
-import SideCategory from "../Components/Sidebar";
+import Cart from "../pages/dashboard-Pages/Cart";
+// import SideCategory from "./Sidebar";
 
 const user = {
   name: "Tom Cook",
@@ -30,7 +30,7 @@ function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
 }
 
-export default function Dashboard() {
+export default function Header() {
   const [openCart, setOpen] = useState(false);
   return (
     <>
@@ -255,9 +255,6 @@ export default function Dashboard() {
         </Disclosure>
 
         <Cart open={openCart} setOpen={setOpen} />
-        <main>
-          <SideCategory />
-        </main>
       </div>
     </>
   );

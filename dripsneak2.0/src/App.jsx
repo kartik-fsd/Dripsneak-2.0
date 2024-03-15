@@ -1,10 +1,11 @@
 import { Toaster } from "react-hot-toast";
 import { Routers } from "./routes/router";
+import Header from "./Components/Header";
 
 function App() {
   return (
     <>
-      {/* <h1 className="text-3xl text-woodsmoke-500">Hello world</h1> */}
+      <Header />
       <Routers />
       <Toaster />
     </>
