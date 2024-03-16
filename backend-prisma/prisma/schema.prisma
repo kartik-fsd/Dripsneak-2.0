@@ -43,6 +43,7 @@ enum Role {
 
 model Product {
   id                String   @id @default(auto()) @map("_id") @db.ObjectId
+  brand_name        String
   name              String
   original_price    Float
   discounted_price  Float

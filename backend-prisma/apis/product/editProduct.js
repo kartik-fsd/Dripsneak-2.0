@@ -18,6 +18,7 @@ router.put("/edit-product/:id", authorizedSeller, async (req, res) => {
 
     // Extract product details from the request body
     const {
+      brand_name,
       name,
       original_price,
       discounted_price,
@@ -53,6 +54,7 @@ router.put("/edit-product/:id", authorizedSeller, async (req, res) => {
       where: { id: productId },
       select: {
         id: false,
+        brand_name: true,
         name: true,
         original_price: true,
         discounted_price: true,
@@ -68,6 +70,7 @@ router.put("/edit-product/:id", authorizedSeller, async (req, res) => {
         createdById: false,
       },
       data: {
+        brand_name,
         name,
         original_price,
         discounted_price,

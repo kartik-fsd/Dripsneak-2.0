@@ -1,6 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import Skeleton from "./Skeleton";
-
+import { useNavigate } from "react-router-dom";
 import NotFound from "../assets/notfound2.webp";
 import { memo } from "react";
 
@@ -11,6 +11,7 @@ const fetchData = async () => {
 };
 
 export default function ProductList() {
+  const navigate = useNavigate();
   const MemoizedSkeleton = memo(() => <Skeleton />);
   // Assign a display name to the MemoizedSkeleton component
   MemoizedSkeleton.displayName = "MemoizedSkeleton";
@@ -39,15 +40,21 @@ export default function ProductList() {
   if (error) {
     return <div>{error.message}</div>;
   }
+
+  const handleNavigation = (product) => {
+    navigate("/product-overview", { state: { product } });
+  };
+
   return (
     <div className="bg-scorpion-50">
       <div className="mx-auto max-w-2xl px-4 py-2 sm:px-3 sm:py-8 lg:max-w-7xl lg:px-8">
-        {/* <h2 className="text-2xl font-bold tracking-tight text-scorpion-900">
-          Customers also purchased
-        </h2> */}
         <div className=" grid grid-cols-1 gap-x-5 gap-y-10 sm:grid-cols-2 lg:grid-cols-3 xl:gap-x-8">
           {productData?.products?.map((product) => (
-            <div key={product.id} className="group relative">
+            <div
+              key={product.id}
+              className="group relative cursor-pointer"
+              onClick={() => handleNavigation(product)}
+            >
               <div className="aspect-h-1 aspect-w-1 w-full overflow-hidden rounded-md bg-rhino-50 lg:aspect-none group-hover:opacity-75 lg:h-80">
                 <img
                   src={product.img[0]}
@@ -69,7 +76,7 @@ export default function ProductList() {
                     </>
                   </h3>
                   <p className="mt-1 text-xs font-normal text-scorpion-500">
-                    {product.style}
+                    {product.brand_name}
                   </p>
                 </div>
                 <div className="mt-1 flex items-center justify-between space-x-2">

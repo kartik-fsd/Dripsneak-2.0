@@ -11,6 +11,7 @@ const prisma = new PrismaClient();
 router.post("/create-product", authorizedSeller, async (req, res) => {
   // Extract product details from the request body
   const {
+    brand_name,
     name,
     original_price,
     discounted_price,
@@ -27,6 +28,7 @@ router.post("/create-product", authorizedSeller, async (req, res) => {
     // Create a new product
     const product = await prisma.product.create({
       data: {
+        brand_name,
         name,
         original_price,
         discounted_price,

@@ -103,13 +103,23 @@ const ProductForm = () => {
             <Form className="px-8 pt-6 pb-8 mb-4 grid grid-cols-1 md:grid-cols-2 gap-3">
               <div className="max-w-md mx-auto p-6 bg-rhino-50 rounded-lg shadow-md ">
                 <h2 className="text-xl font-semibold mb-4">Product Form</h2>
-                <AddproductInputs
-                  label="Sneaker Name"
-                  id="name"
-                  name="name"
-                  type="text"
-                  placeholder="Sneaker name"
-                />
+                <section className="grid grid-cols-1 md:grid-cols-2 gap-2">
+                  <AddproductInputs
+                    label="Sneaker Name"
+                    id="name"
+                    name="name"
+                    type="text"
+                    placeholder="Sneaker name"
+                  />
+                  <AddproductInputs
+                    label="Brand Name"
+                    id="brandname"
+                    name="brand_name"
+                    type="text"
+                    placeholder="Brand"
+                  />
+                </section>
+
                 <section className="grid grid-cols-1 md:grid-cols-2 gap-2">
                   <AddproductInputs
                     label="Original price"

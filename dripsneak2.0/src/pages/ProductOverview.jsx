@@ -1,373 +1,166 @@
-import { useState } from "react";
-import { StarIcon } from "@heroicons/react/20/solid";
-import { RadioGroup } from "@headlessui/react";
-
-const product = {
-  name: "Basic Tee 6-Pack",
-  price: "$192",
-  href: "#",
-  breadcrumbs: [
-    { id: 1, name: "Men", href: "#" },
-    { id: 2, name: "Clothing", href: "#" },
-  ],
-  images: [
-    {
-      src: "https://tailwindui.com/img/ecommerce-images/product-page-02-secondary-product-shot.jpg",
-      alt: "Two each of scorpion, scorpion-50, and black shirts laying flat.",
-    },
-    {
-      src: "https://tailwindui.com/img/ecommerce-images/product-page-02-tertiary-product-shot-01.jpg",
-      alt: "Model wearing plain black basic tee.",
-    },
-    {
-      src: "https://tailwindui.com/img/ecommerce-images/product-page-02-tertiary-product-shot-02.jpg",
-      alt: "Model wearing plain scorpion basic tee.",
-    },
-    {
-      src: "https://tailwindui.com/img/ecommerce-images/product-page-02-featured-product-shot.jpg",
-      alt: "Model wearing plain scorpion-50 basic tee.",
-    },
-  ],
-  colors: [
-    {
-      name: "scorpion-50",
-      class: "bg-scorpion-50",
-      selectedClass: "ring-scorpion-400",
-    },
-    {
-      name: "scorpion",
-      class: "bg-scorpion-200",
-      selectedClass: "ring-scorpion-400",
-    },
-    {
-      name: "Black",
-      class: "bg-scorpion-900",
-      selectedClass: "ring-scorpion-900",
-    },
-  ],
-  sizes: [
-    { name: "XXS", inStock: false },
-    { name: "XS", inStock: true },
-    { name: "S", inStock: true },
-    { name: "M", inStock: true },
-    { name: "L", inStock: true },
-    { name: "XL", inStock: true },
-    { name: "2XL", inStock: true },
-    { name: "3XL", inStock: true },
-  ],
-  description:
-    'The Basic Tee 6-Pack allows you to fully express your vibrant personality with three scorpionscale options. Feeling adventurous? Put on a heather scorpion tee. Want to be a trendsetter? Try our exclusive colorway: "Black". Need to add an extra pop of color to your outfit? Our scorpion-50 tee has you covered.',
-  highlights: [
-    "Hand cut and sewn locally",
-    "Dyed with our proprietary colors",
-    "Pre-washed & pre-shrunk",
-    "Ultra-soft 100% cotton",
-  ],
-  details:
-    'The 6-Pack includes two black, two scorpion-50, and two heather scorpion Basic Tees. Sign up for our subscription service and be the first to get new, exciting colors, like our upcoming "Charcoal scorpion" limited release.',
-};
-const reviews = { href: "#", average: 4, totalCount: 117 };
-
-function classNames(...classes) {
-  return classes.filter(Boolean).join(" ");
-}
+import { useLocation } from "react-router-dom";
 
 export default function ProductOverview() {
-  const [selectedColor, setSelectedColor] = useState(product.colors[0]);
-  const [selectedSize, setSelectedSize] = useState(product.sizes[2]);
+  const location = useLocation();
+  const product = location.state?.product;
 
+  console.log(product);
   return (
-    <div className="bg-scorpion-50">
-      <div className="pt-6">
-        <nav aria-label="Breadcrumb">
-          <ol
-            role="list"
-            className="mx-auto flex max-w-2xl items-center space-x-2 px-4 sm:px-6 lg:max-w-7xl lg:px-8"
-          >
-            {product.breadcrumbs.map((breadcrumb) => (
-              <li key={breadcrumb.id}>
-                <div className="flex items-center">
-                  <a
-                    href={breadcrumb.href}
-                    className="mr-2 text-sm font-medium text-scorpion-900"
-                  >
-                    {breadcrumb.name}
-                  </a>
-                  <svg
-                    width={16}
-                    height={20}
-                    viewBox="0 0 16 20"
-                    fill="currentColor"
-                    aria-hidden="true"
-                    className="h-5 w-4 text-scorpion-300"
-                  >
-                    <path d="M5.697 4.34L8.98 16.532h1.327L7.025 4.341H5.697z" />
-                  </svg>
-                </div>
-              </li>
-            ))}
-            <li className="text-sm">
-              <a
-                href={product.href}
-                aria-current="page"
-                className="font-medium text-scorpion-500 hover:text-scorpion-600"
-              >
-                {product.name}
-              </a>
-            </li>
-          </ol>
-        </nav>
-
-        {/* Image gallery */}
-        <div className="mx-auto mt-6 max-w-2xl sm:px-6 lg:grid lg:max-w-7xl lg:grid-cols-3 lg:gap-x-8 lg:px-8">
-          <div className="aspect-h-4 aspect-w-3 hidden overflow-hidden rounded-lg lg:block">
-            <img
-              src={product.images[0].src}
-              alt={product.images[0].alt}
-              className="h-full w-full object-cover object-center"
-            />
-          </div>
-          <div className="hidden lg:grid lg:grid-cols-1 lg:gap-y-8">
-            <div className="aspect-h-2 aspect-w-3 overflow-hidden rounded-lg">
-              <img
-                src={product.images[1].src}
-                alt={product.images[1].alt}
-                className="h-full w-full object-cover object-center"
-              />
-            </div>
-            <div className="aspect-h-2 aspect-w-3 overflow-hidden rounded-lg">
-              <img
-                src={product.images[2].src}
-                alt={product.images[2].alt}
-                className="h-full w-full object-cover object-center"
-              />
-            </div>
-          </div>
-          <div className="aspect-h-5 aspect-w-4 lg:aspect-h-4 lg:aspect-w-3 sm:overflow-hidden sm:rounded-lg">
-            <img
-              src={product.images[3].src}
-              alt={product.images[3].alt}
-              className="h-full w-full object-cover object-center"
-            />
-          </div>
+    <section className="text-scorpion-900 body-font overflow-hidden bg-rhino-50">
+      <div className="container px-5 py-24 mx-auto flex flex-col lg:flex-row items-center">
+        <div className="lg:w-1/2 flex justify-center mb-12 lg:mb-0">
+          <img
+            alt={product.name}
+            className="lg:w-2/3 w-full object-cover object-center rounded-lg"
+            src={product.img}
+          />
         </div>
-
-        {/* Product info */}
-        <div className="mx-auto max-w-2xl px-4 pb-16 pt-10 sm:px-6 lg:grid lg:max-w-7xl lg:grid-cols-3 lg:grid-rows-[auto,auto,1fr] lg:gap-x-8 lg:px-8 lg:pb-24 lg:pt-16">
-          <div className="lg:col-span-2 lg:border-r lg:border-scorpion-200 lg:pr-8">
-            <h1 className="text-2xl font-bold tracking-tight text-scorpion-900 sm:text-3xl">
-              {product.name}
-            </h1>
+        <div className="lg:w-1/2 lg:pl-12 flex flex-col items-center lg:items-start">
+          <h2 className="text-sm text-scorpion-500 tracking-widest">
+            {product.brand_name}
+          </h2>
+          <h1 className="text-3xl lg:text-4xl text-scorpion-900 font-medium my-2">
+            {product.name}
+          </h1>
+          <div className="flex items-center mb-4">
+            {product.rating}
+            <svg
+              fill="currentColor"
+              stroke="currentColor"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth="2"
+              className="w-5 h-5 text-gray-500 mr-2"
+              viewBox="0 0 24 24"
+            >
+              <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"></path>
+            </svg>
+            <span className="text-gray-500 mr-2">
+              {product.reviews} Reviews
+            </span>
+            <span className="text-gray-500 mx-2">|</span>
+            <span className="text-gray-500 mr-2 uppercase">
+              {product.category_name}
+            </span>
+            <span className="text-gray-500 mx-2">|</span>
+            <span className="text-gray-500 uppercase">{product.style}</span>
           </div>
 
-          {/* Options */}
-          <div className="mt-4 lg:row-span-3 lg:mt-0">
-            <h2 className="sr-only">Product information</h2>
-            <p className="text-3xl tracking-tight text-scorpion-900">
-              {product.price}
-            </p>
-
-            {/* Reviews */}
-            <div className="mt-6">
-              <h3 className="sr-only">Reviews</h3>
-              <div className="flex items-center">
-                <div className="flex items-center">
-                  {[0, 1, 2, 3, 4].map((rating) => (
-                    <StarIcon
-                      key={rating}
-                      className={classNames(
-                        reviews.average > rating
-                          ? "text-scorpion-900"
-                          : "text-scorpion-200",
-                        "h-5 w-5 flex-shrink-0"
-                      )}
-                      aria-hidden="true"
-                    />
-                  ))}
-                </div>
-                <p className="sr-only">{reviews.average} out of 5 stars</p>
-                <a
-                  href={reviews.href}
-                  className="ml-3 text-sm font-medium text-rhino-600 hover:text-rhino-500"
-                >
-                  {reviews.totalCount} reviews
-                </a>
-              </div>
-            </div>
-
-            <form className="mt-10">
-              {/* Colors */}
-              <div>
-                <h3 className="text-sm font-medium text-scorpion-900">Color</h3>
-
-                <RadioGroup
-                  value={selectedColor}
-                  onChange={setSelectedColor}
-                  className="mt-4"
-                >
-                  <RadioGroup.Label className="sr-only">
-                    Choose a color
-                  </RadioGroup.Label>
-                  <div className="flex items-center space-x-3">
-                    {product.colors.map((color) => (
-                      <RadioGroup.Option
-                        key={color.name}
-                        value={color}
-                        className={({ active, checked }) =>
-                          classNames(
-                            color.selectedClass,
-                            active && checked ? "ring ring-offset-1" : "",
-                            !active && checked ? "ring-2" : "",
-                            "relative -m-0.5 flex cursor-pointer items-center justify-center rounded-full p-0.5 focus:outline-none"
-                          )
-                        }
-                      >
-                        <RadioGroup.Label as="span" className="sr-only">
-                          {color.name}
-                        </RadioGroup.Label>
-                        <span
-                          aria-hidden="true"
-                          className={classNames(
-                            color.class,
-                            "h-8 w-8 rounded-full border border-black border-opacity-10"
-                          )}
-                        />
-                      </RadioGroup.Option>
-                    ))}
-                  </div>
-                </RadioGroup>
-              </div>
-
-              {/* Sizes */}
-              <div className="mt-10">
-                <div className="flex items-center justify-between">
-                  <h3 className="text-sm font-medium text-scorpion-900">
-                    Size
-                  </h3>
-                  <a
-                    href="#"
-                    className="text-sm font-medium text-rhino-600 hover:text-rhino-500"
-                  >
-                    Size guide
-                  </a>
-                </div>
-
-                <RadioGroup
-                  value={selectedSize}
-                  onChange={setSelectedSize}
-                  className="mt-4"
-                >
-                  <RadioGroup.Label className="sr-only">
-                    Choose a size
-                  </RadioGroup.Label>
-                  <div className="grid grid-cols-4 gap-4 sm:grid-cols-8 lg:grid-cols-4">
-                    {product.sizes.map((size) => (
-                      <RadioGroup.Option
-                        key={size.name}
-                        value={size}
-                        disabled={!size.inStock}
-                        className={({ active }) =>
-                          classNames(
-                            size.inStock
-                              ? "cursor-pointer bg-scorpion-50 text-scorpion-900 shadow-sm"
-                              : "cursor-not-allowed bg-scorpion-50 text-scorpion-200",
-                            active ? "ring-2 ring-rhino-500" : "",
-                            "group relative flex items-center justify-center rounded-md border py-3 px-4 text-sm font-medium uppercase hover:bg-scorpion-50 focus:outline-none sm:flex-1 sm:py-6"
-                          )
-                        }
-                      >
-                        {({ active, checked }) => (
-                          <>
-                            <RadioGroup.Label as="span">
-                              {size.name}
-                            </RadioGroup.Label>
-                            {size.inStock ? (
-                              <span
-                                className={classNames(
-                                  active ? "border" : "border-2",
-                                  checked
-                                    ? "border-rhino-500"
-                                    : "border-transparent",
-                                  "pointer-events-none absolute -inset-px rounded-md"
-                                )}
-                                aria-hidden="true"
-                              />
-                            ) : (
-                              <span
-                                aria-hidden="true"
-                                className="pointer-events-none absolute -inset-px rounded-md border-2 border-scorpion-200"
-                              >
-                                <svg
-                                  className="absolute inset-0 h-full w-full stroke-2 text-scorpion-200"
-                                  viewBox="0 0 100 100"
-                                  preserveAspectRatio="none"
-                                  stroke="currentColor"
-                                >
-                                  <line
-                                    x1={0}
-                                    y1={100}
-                                    x2={100}
-                                    y2={0}
-                                    vectorEffect="non-scaling-stroke"
-                                  />
-                                </svg>
-                              </span>
-                            )}
-                          </>
-                        )}
-                      </RadioGroup.Option>
-                    ))}
-                  </div>
-                </RadioGroup>
-              </div>
-
-              <button
-                type="submit"
-                className="mt-10 flex w-full items-center justify-center rounded-md border border-transparent bg-rhino-600 px-8 py-3 text-base font-medium text-scorpion-50 hover:bg-rhino-700 focus:outline-none focus:ring-2 focus:ring-rhino-500 focus:ring-offset-2"
-              >
-                Add to bag
-              </button>
-            </form>
+          <p className="leading-relaxed mb-6 text-center lg:text-left">
+            {product.description}
+          </p>
+          <div className="flex items-center mb-4">
+            <span className="mr-2 text-scorpion-600">Size:</span>
+            <select className="rounded border border-scorpion-300 focus:outline-none focus:border-rhino-500 text-base pl-3 pr-10 py-2">
+              {product?.size.map((item, key) => (
+                <option key={key}>{item}</option>
+              ))}
+            </select>
           </div>
-
-          <div className="py-10 lg:col-span-2 lg:col-start-1 lg:border-r lg:border-scorpion-200 lg:pb-16 lg:pr-8 lg:pt-6">
-            {/* Description and details */}
-            <div>
-              <h3 className="sr-only">Description</h3>
-
-              <div className="space-y-6">
-                <p className="text-base text-scorpion-900">
-                  {product.description}
-                </p>
-              </div>
-            </div>
-
-            <div className="mt-10">
-              <h3 className="text-sm font-medium text-scorpion-900">
-                Highlights
-              </h3>
-
-              <div className="mt-4">
-                <ul role="list" className="list-disc space-y-2 pl-4 text-sm">
-                  {product.highlights.map((highlight) => (
-                    <li key={highlight} className="text-scorpion-400">
-                      <span className="text-scorpion-600">{highlight}</span>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            </div>
-
-            <div className="mt-10">
-              <h2 className="text-sm font-medium text-scorpion-900">Details</h2>
-
-              <div className="mt-4 space-y-6">
-                <p className="text-sm text-scorpion-600">{product.details}</p>
-              </div>
-            </div>
+          <div className="flex items-center">
+            <span className="text-xl lg:text-2xl font-medium text-scorpion-600 line-through mr-4">
+              {"₹"}
+              {product.original_price}
+            </span>
+            <span className="text-3xl lg:text-4xl font-bold text-rhino-500">
+              {"₹"}
+              {product.discounted_price}
+            </span>
           </div>
+          <button className="mt-8 bg-rhino-500 hover:bg-rhino-600 text-rhino-50 font-semibold py-3 px-8 rounded-full transition duration-300">
+            Add to Cart
+          </button>
         </div>
       </div>
-    </div>
+    </section>
   );
 }
+// import { useLocation } from "react-router-dom";
+
+// const ProductOverview = () => {
+//   const location = useLocation();
+//   const product = location.state?.product;
+//   return (
+//     <section className="product-overview bg-gradient-to-r from-rhino-50 to-rhino-100 h-screen overflow-hidden">
+//       <div className="container px-5 py-14 mx-auto flex flex-wrap justify-around items-center space-x-2">
+//         <ProductImage image={product.img} alt={product.name} />
+//         <ProductInfo product={product} />
+//       </div>
+//     </section>
+//   );
+// };
+
+// const ProductImage = ({ image, alt }) => {
+//   return (
+//     <div className="product-image lg:w-1/3 w-full mb-6 lg:mb-0 aspect-ratio-square relative">
+//       <img
+//         src={image}
+//         alt={alt}
+//         className="rounded object-cover object-center w-full h-full shadow-md hover:opacity-80"
+//       />
+//     </div>
+//   );
+// };
+
+// const ProductInfo = ({ product }) => {
+//   return (
+//     <div className="product-info lg:w-1/3 w-full">
+//       <h2 className="text-3xl title-font text-totem-pole-900 font-bold mb-2 lg:mb-4">
+//         {product.name}
+//       </h2>
+//       <div className="flex items-center mb-2">
+//         <span className="mr-2 text-rhino-500">
+//           <svg
+//             fill="currentColor"
+//             stroke="currentColor"
+//             stroke-width="2"
+//             viewBox="0 0 24 24"
+//             className="w-4 h-4"
+//           >
+//             <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"></path>
+//           </svg>
+//         </span>
+//         <span className="text-scorpion-500">
+//           {product.reviews.length} Reviews
+//         </span>
+//       </div>
+//       <p className="text-scorpion-700 mb-4 leading-relaxed">
+//         {product.description}
+//       </p>
+//       <div className="flex items-center mb-4">
+//         <span className="mr-3 text-scorpion-700">Size:</span>
+//         <select className="rounded border border-rhino-200 py-2 px-3 focus:outline-none focus:border-totem-pole-500 text-base">
+//           {product.size.map((item, key) => (
+//             <option key={key}>{item}</option>
+//           ))}
+//         </select>
+//       </div>
+//       <div className="flex items-center justify-between">
+//         <div className="price flex items-center">
+//           <span className="text-rhino-500 line-through mr-2">
+//             ₹{product.original_price}
+//           </span>
+//           <span className="text-totem-pole-900 font-bold">
+//             ₹{product.discounted_price}
+//           </span>
+//         </div>
+//       </div>
+//       <div className="my-4 ">
+//         <button className="rounded-full bg-totem-pole-500 hover:bg-totem-pole-700 p-2 text-rhino-50 shadow-md">
+//           <svg
+//             fill="none"
+//             strokeWidth="2"
+//             strokeLinecap="round"
+//             strokeLinejoin="round"
+//             viewBox="0 0 24 24"
+//             className="w-5 h-5"
+//           >
+//             <path d="M3 3h16v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V3zM6 7h12v9H6zM12 17v.01"></path>
+//           </svg>
+//         </button>
+//       </div>
+//     </div>
+//   );
+// };
+
+// export default ProductOverview;

@@ -10,9 +10,13 @@ const createMultipleProduct = require("./apis/product/multipleProductCreation.js
 const fetchCategoryWise = require("./apis/product/category.js");
 const editProductDetails = require("./apis/product/editProduct.js");
 const deleteProduct = require("./apis/product/deleteProduct.js");
-
+const bulkReviews = require("./apis/product/bulkReview.js");
 const addReview = require("./apis/product/addReview.js");
+
 const fetchReview = require("./apis/product/fetchProductReview.js");
+
+const productIds = require("./apis/product/productIds.js");
+const userIds = require("./apis/auth/userId.js");
 
 const app = express();
 
@@ -53,6 +57,15 @@ app.use("/product", addReview);
 
 //fetch all product review of specified product
 app.use("/product", fetchReview);
+
+//fetch all product Id's
+app.use("/product", productIds);
+
+//fetch all user Id'specified role
+app.use("/user", userIds);
+
+//create bulk review
+app.use("/product", bulkReviews);
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
