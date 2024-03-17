@@ -2,7 +2,8 @@ import { useQuery } from "@tanstack/react-query";
 import Skeleton from "./Skeleton";
 import { useNavigate } from "react-router-dom";
 import NotFound from "../assets/notfound2.webp";
-import { memo } from "react";
+import { useMemo } from "react";
+import { PropTypes } from "prop-types";
 
 const fetchData = async () => {
   return await fetch("http://localhost:3000/product/all-products").then(
@@ -10,15 +11,8 @@ const fetchData = async () => {
   );
 };
 
-export default function ProductList() {
+export default function ProductList({ sort }) {
   const navigate = useNavigate();
-  const MemoizedSkeleton = memo(() => <Skeleton />);
-  // Assign a display name to the MemoizedSkeleton component
-  MemoizedSkeleton.displayName = "MemoizedSkeleton";
-
-  const skeletonComponents = Array.from({ length: 3 * 3 }, (_, index) => (
-    <MemoizedSkeleton key={index} />
-  ));
 
   const {
     data: productData,
@@ -29,12 +23,50 @@ export default function ProductList() {
     queryFn: fetchData,
   });
 
+  const sortedProducts = useMemo(() => {
+    if (!productData || isLoading || error) {
+      return [];
+    }
+    // Clone the original data array before sorting
+    const clonedData = [...productData.products];
+
+    switch (sort) {
+      case "Most Popular":
+        return clonedData.sort((a, b) => {
+          // Sort by trending (true before false) and then by reviews (descending)
+          return b.trending - a.trending || b.reviews - a.reviews;
+        });
+      case "Best Rating":
+        return clonedData.sort((a, b) => {
+          // Prioritize higher rating, then break ties with higher reviews
+          return b.rating - a.rating || b.reviews - a.reviews;
+        });
+      case "Newest":
+        return clonedData;
+
+      case "Price: Low to High":
+        return clonedData.sort((a, b) => {
+          // Prioritize lower price, then higher original price for tied discounted prices
+          return (
+            a.discounted_price - b.discounted_price ||
+            a.original_price - b.original_price
+          );
+        });
+      case "Price: High to Low":
+        return clonedData.sort((a, b) => {
+          // Prioritize higher price, then lower original price for tied discounted prices
+          return (
+            b.discounted_price - a.discounted_price ||
+            b.original_price - a.original_price
+          );
+        });
+      default:
+        return clonedData;
+    }
+  }, [productData, isLoading, error, sort]);
+
   if (isLoading) {
-    return (
-      <div className="flex flex-wrap justify-between space-x-4 space-y-4">
-        {skeletonComponents}
-      </div>
-    );
+    return <Skeleton />;
   }
 
   if (error) {
@@ -49,7 +81,7 @@ export default function ProductList() {
     <div className="bg-scorpion-50">
       <div className="mx-auto max-w-2xl px-4 py-2 sm:px-3 sm:py-8 lg:max-w-7xl lg:px-8">
         <div className=" grid grid-cols-1 gap-x-5 gap-y-10 sm:grid-cols-2 lg:grid-cols-3 xl:gap-x-8">
-          {productData?.products?.map((product) => (
+          {sortedProducts.map((product) => (
             <div
               key={product.id}
               className="group relative cursor-pointer"
@@ -96,3 +128,6 @@ export default function ProductList() {
     </div>
   );
 }
+ProductList.propTypes = {
+  sort: PropTypes.string.isRequired,
+};

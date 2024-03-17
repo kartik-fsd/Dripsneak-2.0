@@ -11,11 +11,26 @@ import {
 import ProductList from "./ProductList";
 
 const sortOptions = [
-  { name: "Most Popular", href: "#", current: true },
-  { name: "Best Rating", href: "#", current: false },
-  { name: "Newest", href: "#", current: false },
-  { name: "Price: Low to High", href: "#", current: false },
-  { name: "Price: High to Low", href: "#", current: false },
+  {
+    name: "Most Popular",
+    text: "Trending Now",
+  }, // Added text property
+  {
+    name: "Best Rating",
+    text: "Top Rated",
+  }, // Added text property
+  {
+    name: "Newest",
+    text: "New Arrivals",
+  }, // Added text property
+  {
+    name: "Price: Low to High",
+    text: "Price (Low to High)",
+  }, // Added text property
+  {
+    name: "Price: High to Low",
+    text: "Price (High to Low)",
+  },
 ];
 
 const filters = [
@@ -52,7 +67,13 @@ function classNames(...classes) {
 
 export default function SideCategory() {
   const [mobileFiltersOpen, setMobileFiltersOpen] = useState(false);
+  const [sort, setSort] = useState("Most Popular");
 
+  const getHeaderText = () => {
+    // Find the selected option object and return its text property
+    const selectedOption = sortOptions.find((option) => option.name === sort);
+    return selectedOption?.text || ""; // Use default text if not found
+  };
   return (
     <div className="bg-scorpion-50">
       <div>
@@ -169,7 +190,7 @@ export default function SideCategory() {
         <main className="mx-auto max-w-7xl px-2 sm:px-3 lg:px-4">
           <div className="flex items-baseline justify-between border-b border-scorpion-200 py-4">
             <h1 className="text-4xl font-bold tracking-tight text-scorpion-900">
-              New Arrivals
+              {getHeaderText()}
             </h1>
 
             <div className="flex items-center">
@@ -198,18 +219,18 @@ export default function SideCategory() {
                       {sortOptions.map((option) => (
                         <Menu.Item key={option.name}>
                           {({ active }) => (
-                            <a
-                              href={option.href}
+                            <p
                               className={classNames(
-                                option.current
+                                option.name === sort
                                   ? "font-medium text-scorpion-900"
                                   : "text-scorpion-500",
                                 active ? "bg-scorpion-100" : "",
-                                "block px-4 py-2 text-sm"
+                                "block px-4 py-2 text-sm cursor-pointer"
                               )}
+                              onClick={() => setSort(option.name)}
                             >
                               {option.name}
-                            </a>
+                            </p>
                           )}
                         </Menu.Item>
                       ))}
@@ -305,7 +326,7 @@ export default function SideCategory() {
 
               {/* Product grid */}
               <div className="lg:col-span-3">
-                <ProductList />
+                <ProductList sort={sort} />
               </div>
             </div>
           </section>

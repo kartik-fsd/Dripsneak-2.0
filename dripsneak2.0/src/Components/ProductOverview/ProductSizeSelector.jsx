@@ -13,7 +13,7 @@ const ProductSizeSelector = ({ sizes }) => {
           See sizing chart
         </span>
       </section>
-      <div className="flex space-x-4 items-center mb-4">
+      <div className="w-fit flex flex-wrap items-center mb-4 space-x-2">
         {sizes.map((size) => (
           <RadioGroup.Option
             key={size}
@@ -29,7 +29,7 @@ const ProductSizeSelector = ({ sizes }) => {
                      ? "bg-rhino-600 bg-opacity-75 text-scorpion-50"
                      : "bg-rhino-50"
                  }
-                 relative rounded-lg shadow-md px-5 py-4 cursor-pointer flex focus:outline-none`
+                 relative rounded-lg shadow-md px-5 py-4 my-2 cursor-pointer flex focus:outline-none`
             }
           >
             {({ active, checked }) => (
