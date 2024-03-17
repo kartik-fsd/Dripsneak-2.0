@@ -47,6 +47,7 @@ export default {
         900: "#434041",
         950: "#252323",
       },
+      transparent: "transparent",
     },
   },
   plugins: ["/aspect-ratio", "/forms", "/aspect-ratio"],

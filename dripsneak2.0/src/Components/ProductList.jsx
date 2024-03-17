@@ -59,7 +59,7 @@ export default function ProductList() {
                 <img
                   src={product.img[0]}
                   alt={product.name}
-                  className="h-full w-full object-cover object-center lg:h-full lg:w-full"
+                  className="bg-rhino-50 h-full w-full object-cover object-center lg:h-full lg:w-full"
                   loading="lazy"
                   role="presentation"
                   onError={(e) => {
