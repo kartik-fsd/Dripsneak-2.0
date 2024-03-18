@@ -7,24 +7,10 @@ import {
   HeartIcon,
   ShoppingCartIcon,
 } from "@heroicons/react/24/outline";
-import { Link } from "react-router-dom";
+import { Link, NavLink, useNavigate } from "react-router-dom";
 import Cart from "../pages/dashboard-Pages/Cart";
-// import SideCategory from "./Sidebar";
-
-const user = {
-  name: "Tom Cook",
-  email: "tom@Dashboard.com",
-  imageUrl:
-    "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80",
-};
-const navigation = [{ name: "Dripsneak", href: "/", current: true }];
-const userNavigation = [
-  { name: "Cart", href: "#" },
-  { name: "Liked Items", href: "#" },
-  { name: "Your Profile", href: "#" },
-  { name: "Settings", href: "#" },
-  { name: "Sign out", href: "#" },
-];
+import axios from "axios";
+import { navigation, user, userNavigation } from "../assets/data";
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
@@ -32,6 +18,24 @@ function classNames(...classes) {
 
 export default function Header() {
   const [openCart, setOpen] = useState(false);
+  const navigate = useNavigate();
+  const logout = async () => {
+    try {
+      // Remove authToken from localStorage
+      localStorage.removeItem("auth-token");
+      localStorage.removeItem("role");
+      // Call logout endpoint on the server
+      await axios.get("http://localhost:3000/user/logout");
+      // Redirect to signin page
+      navigate("/signin");
+      console.log("del");
+    } catch (error) {
+      // Handle error
+      console.error("Logout error:", error);
+      // Redirect to signin page even if logout fails
+      navigate("/signin");
+    }
+  };
   return (
     <>
       <div className="min-h-full">
@@ -153,15 +157,21 @@ export default function Header() {
                             {userNavigation.map((item) => (
                               <Menu.Item key={item.name}>
                                 {({ active }) => (
-                                  <a
-                                    href={item.href}
+                                  <NavLink
+                                    to={item.href}
                                     className={classNames(
                                       active ? "bg-rhino-100" : "",
                                       "block px-4 py-2 text-sm text-rhino-700"
                                     )}
                                   >
-                                    {item.name}
-                                  </a>
+                                    {item.name === "Sign out" ? (
+                                      <button onClick={() => logout()}>
+                                        Sign out
+                                      </button>
+                                    ) : (
+                                      item.name
+                                    )}
+                                  </NavLink>
                                 )}
                               </Menu.Item>
                             ))}
@@ -243,6 +253,9 @@ export default function Header() {
                         as="a"
                         href={item.href}
                         className="block rounded-md px-3 py-2 text-base font-medium text-rhino-400 hover:bg-rhino-700 hover:text-scorpion-50"
+                        onClick={() =>
+                          item.name === "Sign out" ? logout() : ""
+                        }
                       >
                         {item.name}
                       </Disclosure.Button>

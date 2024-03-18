@@ -1,65 +1,14 @@
 import { Fragment, useState } from "react";
-import { Dialog, Disclosure, Menu, Transition } from "@headlessui/react";
+import { Dialog, Menu, Transition } from "@headlessui/react";
 import { XMarkIcon } from "@heroicons/react/24/outline";
 import {
   ChevronDownIcon,
   FunnelIcon,
-  MinusIcon,
-  PlusIcon,
   Squares2X2Icon,
 } from "@heroicons/react/20/solid";
 import ProductList from "./ProductList";
-
-const sortOptions = [
-  {
-    name: "Most Popular",
-    text: "Trending Now",
-  }, // Added text property
-  {
-    name: "Best Rating",
-    text: "Top Rated",
-  }, // Added text property
-  {
-    name: "Newest",
-    text: "New Arrivals",
-  }, // Added text property
-  {
-    name: "Price: Low to High",
-    text: "Price (Low to High)",
-  }, // Added text property
-  {
-    name: "Price: High to Low",
-    text: "Price (High to Low)",
-  },
-];
-
-const filters = [
-  {
-    id: "category",
-    name: "Category",
-    options: [
-      { value: "male", label: "Men", checked: false },
-      { value: "female", label: "Women", checked: false },
-      { value: "Kids", label: "Kid's", checked: false },
-      { value: "unisex", label: "Unisex", checked: true },
-    ],
-  },
-  {
-    id: "size",
-    name: "Size",
-    options: [
-      { value: "US_5", label: "US 5", checked: false },
-      { value: "US_6", label: "US 6", checked: false },
-      { value: "US_7", label: "US 7", checked: false },
-      { value: "US_8", label: "US 8", checked: false },
-      { value: "US_9", label: "US 9", checked: false },
-      { value: "US_10", label: "US 10", checked: false },
-      { value: "US_11", label: "US 11", checked: false },
-      { value: "US_12", label: "US 12", checked: false },
-      { value: "US_13", label: "US 13", checked: false },
-    ],
-  },
-];
+import CustomDisclosure from "./sidebar/Disclosure";
+import { filters, sortOptions } from "../assets/data";
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
@@ -68,12 +17,14 @@ function classNames(...classes) {
 export default function SideCategory() {
   const [mobileFiltersOpen, setMobileFiltersOpen] = useState(false);
   const [sort, setSort] = useState("Most Popular");
+  const [size, setSize] = useState("");
 
   const getHeaderText = () => {
     // Find the selected option object and return its text property
     const selectedOption = sortOptions.find((option) => option.name === sort);
     return selectedOption?.text || ""; // Use default text if not found
   };
+  console.log(size);
   return (
     <div className="bg-scorpion-50">
       <div>
@@ -124,61 +75,11 @@ export default function SideCategory() {
                   {/* Filters */}
                   <form className="mt-4 border-t border-scorpion-200">
                     {filters.map((section) => (
-                      <Disclosure
-                        as="div"
+                      <CustomDisclosure
                         key={section.id}
-                        className="border-t border-scorpion-200 px-4 py-6"
-                      >
-                        {({ open }) => (
-                          <>
-                            <h3 className="-mx-2 -my-3 flow-root">
-                              <Disclosure.Button className="flex w-full items-center justify-between bg-scorpion-50 px-2 py-3 text-scorpion-400 hover:text-scorpion-500">
-                                <span className="font-medium text-scorpion-900">
-                                  {section.name}
-                                </span>
-                                <span className="ml-6 flex items-center">
-                                  {open ? (
-                                    <MinusIcon
-                                      className="h-5 w-5"
-                                      aria-hidden="true"
-                                    />
-                                  ) : (
-                                    <PlusIcon
-                                      className="h-5 w-5"
-                                      aria-hidden="true"
-                                    />
-                                  )}
-                                </span>
-                              </Disclosure.Button>
-                            </h3>
-                            <Disclosure.Panel className="pt-6">
-                              <div className="space-y-6">
-                                {section.options.map((option, optionIdx) => (
-                                  <div
-                                    key={option.value}
-                                    className="flex items-center"
-                                  >
-                                    <input
-                                      id={`filter-mobile-${section.id}-${optionIdx}`}
-                                      name={`${section.id}[]`}
-                                      defaultValue={option.value}
-                                      type="checkbox"
-                                      defaultChecked={option.checked}
-                                      className="h-4 w-4 rounded border-scorpion-300 text-rhino-600 focus:ring-rhino-500"
-                                    />
-                                    <label
-                                      htmlFor={`filter-mobile-${section.id}-${optionIdx}`}
-                                      className="ml-3 min-w-0 flex-1 text-scorpion-500"
-                                    >
-                                      {option.label}
-                                    </label>
-                                  </div>
-                                ))}
-                              </div>
-                            </Disclosure.Panel>
-                          </>
-                        )}
-                      </Disclosure>
+                        section={section}
+                        setSize={setSize}
+                      />
                     ))}
                   </form>
                 </Dialog.Panel>
@@ -266,61 +167,11 @@ export default function SideCategory() {
               {/* Filters */}
               <form className="hidden lg:block ">
                 {filters.map((section) => (
-                  <Disclosure
-                    as="div"
+                  <CustomDisclosure
                     key={section.id}
-                    className="border-b border-scorpion-200 py-6"
-                  >
-                    {({ open }) => (
-                      <>
-                        <h3 className="-my-3 flow-root">
-                          <Disclosure.Button className="flex w-full items-center justify-between bg-scorpion-50 py-3 text-sm text-scorpion-400 hover:text-scorpion-500">
-                            <span className="font-medium text-scorpion-900">
-                              {section.name}
-                            </span>
-                            <span className="ml-6 flex items-center">
-                              {open ? (
-                                <MinusIcon
-                                  className="h-5 w-5"
-                                  aria-hidden="true"
-                                />
-                              ) : (
-                                <PlusIcon
-                                  className="h-5 w-5"
-                                  aria-hidden="true"
-                                />
-                              )}
-                            </span>
-                          </Disclosure.Button>
-                        </h3>
-                        <Disclosure.Panel className="pt-6">
-                          <div className="space-y-4">
-                            {section.options.map((option, optionIdx) => (
-                              <div
-                                key={option.value}
-                                className="flex items-center"
-                              >
-                                <input
-                                  id={`filter-${section.id}-${optionIdx}`}
-                                  name={`${section.id}[]`}
-                                  defaultValue={option.value}
-                                  type="checkbox"
-                                  defaultChecked={option.checked}
-                                  className="h-4 w-4 rounded border-scorpion-300 text-rhino-600 focus:ring-rhino-500"
-                                />
-                                <label
-                                  htmlFor={`filter-${section.id}-${optionIdx}`}
-                                  className="ml-3 text-sm text-scorpion-600"
-                                >
-                                  {option.label}
-                                </label>
-                              </div>
-                            ))}
-                          </div>
-                        </Disclosure.Panel>
-                      </>
-                    )}
-                  </Disclosure>
+                    section={section}
+                    setSize={setSize}
+                  />
                 ))}
               </form>
 

@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import NotFound from "../assets/notfound2.webp";
 import { useMemo } from "react";
 import { PropTypes } from "prop-types";
+import { sortProducts } from "../utils/sort";
 
 const fetchData = async () => {
   return await fetch("http://localhost:3000/product/all-products").then(
@@ -23,47 +24,11 @@ export default function ProductList({ sort }) {
     queryFn: fetchData,
   });
 
-  const sortedProducts = useMemo(() => {
-    if (!productData || isLoading || error) {
-      return [];
-    }
-    // Clone the original data array before sorting
-    const clonedData = [...productData.products];
-
-    switch (sort) {
-      case "Most Popular":
-        return clonedData.sort((a, b) => {
-          // Sort by trending (true before false) and then by reviews (descending)
-          return b.trending - a.trending || b.reviews - a.reviews;
-        });
-      case "Best Rating":
-        return clonedData.sort((a, b) => {
-          // Prioritize higher rating, then break ties with higher reviews
-          return b.rating - a.rating || b.reviews - a.reviews;
-        });
-      case "Newest":
-        return clonedData;
-
-      case "Price: Low to High":
-        return clonedData.sort((a, b) => {
-          // Prioritize lower price, then higher original price for tied discounted prices
-          return (
-            a.discounted_price - b.discounted_price ||
-            a.original_price - b.original_price
-          );
-        });
-      case "Price: High to Low":
-        return clonedData.sort((a, b) => {
-          // Prioritize higher price, then lower original price for tied discounted prices
-          return (
-            b.discounted_price - a.discounted_price ||
-            b.original_price - a.original_price
-          );
-        });
-      default:
-        return clonedData;
-    }
-  }, [productData, isLoading, error, sort]);
+  //sorting the data according to filter
+  const sortedProducts = useMemo(
+    () => sortProducts(productData, isLoading, error, sort),
+    [productData, isLoading, error, sort]
+  );
 
   if (isLoading) {
     return <Skeleton />;

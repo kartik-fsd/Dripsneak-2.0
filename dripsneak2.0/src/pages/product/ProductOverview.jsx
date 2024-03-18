@@ -1,10 +1,10 @@
 import { useLocation } from "react-router-dom";
-import { renderRatingStars } from "../Components/ProductOverview/RatingStar";
+import { renderRatingStars } from "../../Components/ProductOverview/RatingStar";
 import { useState } from "react";
-import ProductSizeSelector from "../Components/ProductOverview/ProductSizeSelector";
-import PriceAndAvailable from "../Components/ProductOverview/PriceAndAvailable";
-import CartBtn from "../Components/ProductOverview/CartBtn";
-import ProductReviewRatingSections from "../Components/ProductOverview/ProductReviewRatingSections";
+import ProductSizeSelector from "../../Components/ProductOverview/ProductSizeSelector";
+import PriceAndAvailable from "../../Components/ProductOverview/PriceAndAvailable";
+import CartBtn from "../../Components/ProductOverview/CartBtn";
+import ProductReviewRatingSections from "../../Components/ProductOverview/ProductReviewRatingSections";
 
 export default function ProductOverview() {
   const location = useLocation();
