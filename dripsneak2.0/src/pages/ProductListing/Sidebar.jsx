@@ -6,15 +6,15 @@ import {
   FunnelIcon,
   Squares2X2Icon,
 } from "@heroicons/react/20/solid";
-import ProductList from "./ProductList";
-import CustomDisclosure from "./sidebar/Disclosure";
-import { filters, sortOptions } from "../assets/data";
+import ProductList from "../../Components/product/ProductList";
+import CustomDisclosure from "../../Components/sidebar/Disclosure";
+import { filters, sortOptions } from "../../assets/data";
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
 }
 
-export default function SideCategory() {
+export default function ProductListPage() {
   const [mobileFiltersOpen, setMobileFiltersOpen] = useState(false);
   const [sort, setSort] = useState("Most Popular");
   const [size, setSize] = useState("");

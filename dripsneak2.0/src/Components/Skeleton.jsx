@@ -1,14 +1,14 @@
 function Skeleton() {
   return (
-    <div className="relative flex flex-col mt-6 text-scorpion-700 bg-scorpion-50 shadow-md bg-clip-border rounded-xl w-64 animate-pulse">
-      <div className="relative grid h-40 mx-4 mt-4 overflow-hidden text-scorpion-700 bg-scorpion-300 bg-clip-border rounded-xl place-items-center">
+    <div className="relative flex flex-col mt-6 text-scorpion-500 bg-scorpion-50 shadow-md bg-clip-border rounded-xl w-64 animate-pulse">
+      <div className="relative grid h-40 mx-4 mt-4 overflow-hidden text-scorpion-500 bg-scorpion-300 bg-clip-border rounded-xl place-items-center">
         <svg
           xmlns="http://www.w3.org/2000/svg"
           fill="none"
           viewBox="0 0 24 24"
           strokeWidth="2"
           stroke="currentColor"
-          className="w-12 h-12 text-scorpion-500"
+          className="w-12 h-12 text-scorpion-400"
         >
           <path
             strokeLinecap="round"
@@ -38,7 +38,7 @@ function Skeleton() {
         <button
           disabled=""
           tabIndex="-1"
-          className="align-middle select-none font-sans font-bold text-center uppercase transition-all disabled:opacity-50 disabled:shadow-none disabled:pointer-events-none text-xs py-3 px-6 rounded-lg text-scorpion-50 shadow-scorpion-900/10 hover:shadow-scorpion-900/20 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none h-8 w-20 bg-scorpion-300 shadow-none hover:shadow-none"
+          className="align-middle select-none font-sans font-bold text-center uppercase transition-all disabled:opacity-50 disabled:shadow-none disabled:pointer-events-none text-xs py-3 px-6 rounded-lg text-scorpion-50 scorpionshadow-scorpion-700/10 hover:scorpionshadow-scorpion-700/20 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none h-8 w-20 bg-scorpion-300 shadow-none hover:shadow-none"
           type="button"
         >
           &nbsp;
@@ -48,4 +48,12 @@ function Skeleton() {
   );
 }
 
-export default Skeleton;
+export const ProductSkeleton = () => {
+  return (
+    <div className="grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 items-center justify-center">
+      {[...Array(9)].map((_, index) => (
+        <Skeleton key={index} />
+      ))}
+    </div>
+  );
+};

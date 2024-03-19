@@ -11,6 +11,7 @@ import { Link, NavLink, useNavigate } from "react-router-dom";
 import Cart from "../pages/dashboard-Pages/Cart";
 import axios from "axios";
 import { navigation, user, userNavigation } from "../assets/data";
+import SearchBar from "./Search/Search";
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
@@ -69,7 +70,7 @@ export default function Header() {
                   </div>
 
                   {/* Search Bar */}
-                  <div className="flex">
+                  {/* <div className="flex">
                     <div className="pt-2 relative mx-auto text-gray-600 ml-4  md:ml-6">
                       <input
                         className="border-2 border-gray-300 bg-scorpion-100 text-scorpion-700 h-10 px-5 pr-16 rounded-lg text-sm focus:outline-none border-none w-full md:w-64"
@@ -97,7 +98,8 @@ export default function Header() {
                         </svg>
                       </button>
                     </div>
-                  </div>
+                  </div> */}
+                  <SearchBar />
                   <div className="hidden md:block">
                     <div className="ml-4 flex items-center space-x-5 md:ml-6">
                       <button

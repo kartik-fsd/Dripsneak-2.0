@@ -18,7 +18,7 @@ const RatingSection = () => {
 
   const averageRating = calculateAverageRating();
   return (
-    <div className=" px-4 py-6 flex flex-col items-center gap-4">
+    <div className="px-4 py-6 flex flex-col items-center gap-4">
       <div className="flex flex-col items-center justify-between text-sm font-medium">
         <div className="flex items-center">
           <svg
