@@ -14,9 +14,9 @@ const ProductSizeSelector = ({ sizes }) => {
         </span>
       </section>
       <div className="w-fit flex flex-wrap items-center mb-4 space-x-2">
-        {sizes.map((size) => (
+        {sizes.map((size, key) => (
           <RadioGroup.Option
-            key={size}
+            key={key}
             value={size}
             className={({ active, checked }) =>
               `${

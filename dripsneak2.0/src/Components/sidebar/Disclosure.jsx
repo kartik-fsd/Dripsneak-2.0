@@ -52,7 +52,6 @@ export default function CustomDisclosure({
                     name={`${section.id}[]`}
                     defaultValue={option.value}
                     type="checkbox"
-                    defaultChecked={option.checked}
                     className="h-4 w-4 rounded border-scorpion-300 text-rhino-600 focus:ring-rhino-500"
                     checked={checkedValues[option.value]}
                     onChange={handleCheckboxChange}
