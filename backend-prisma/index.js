@@ -20,6 +20,11 @@ const userIds = require("./apis/auth/userId.js");
 const { searchProducts } = require("./apis/product/search.js");
 const productOverview = require("./apis/product/productOverview.js");
 
+const popularProduct = require("./apis/product/sort/mostPopular.js");
+const bestRating = require("./apis/product/sort/bestRating.js");
+const lowPrices = require("./apis/product/sort/lowPrice.js");
+const highPrices = require("./apis/product/sort/highPrice.js");
+
 const app = express();
 
 // Middleware
@@ -74,6 +79,18 @@ app.get("/product/search", searchProducts);
 
 //fetch the required product detail
 app.use("/product", productOverview);
+
+//fetch the popular sneaker
+app.use("/product", popularProduct);
+
+//fetch the popular sneaker
+app.use("/product", bestRating);
+
+//fecth the low to high priced product
+app.use("/product", lowPrices);
+
+//fecth the high to low priced product
+app.use("/product", highPrices);
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
