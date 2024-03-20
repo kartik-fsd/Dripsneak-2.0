@@ -37,30 +37,30 @@ const ProductListingCard = () => {
 
             {/* Product grid */}
             <div className="lg:col-span-2">
-              <div className="max-w-md mx-auto bg-rhino-50 shadow-md rounded-md overflow-hidden">
+              <div className="max-w-md mx-auto bg-totem-pole-50 shadow-md rounded-md overflow-hidden">
                 <div className="flex justify-between p-4">
                   <div>
-                    <h3 className="text-lg font-medium text-gray-800">
+                    <h3 className="text-lg font-medium text-scorpion-800">
                       {brand_name}
                     </h3>
-                    <h4 className="text-base font-medium text-gray-700">
+                    <h4 className="text-base font-medium text-scorpion-700">
                       {name}
                     </h4>
                   </div>
                   <div className="flex items-center">
-                    <p className="text-sm text-gray-500 line-through mr-2">
+                    <p className="text-sm text-scorpion-500 line-through animation-strikethrough mr-2">
                       ₹{original_price.toLocaleString()}
                     </p>
-                    <p className="text-sm font-medium text-green-500">
+                    <p className="text-sm font-medium text-valid">
                       ₹{discounted_price.toLocaleString()}
                     </p>
                   </div>
                 </div>
-                <div className="aspect-h-1 aspect-w-1 w-full overflow-hidden rounded-md bg-rhino-50 lg:aspect-none group-hover:opacity-75 lg:h-80">
+                <div className="aspect-h-1 aspect-w-1 w-full overflow-hidden rounded-md bg-scorpion-50 lg:aspect-none group-hover:opacity-75 lg:h-80">
                   <img
                     src={img[0]}
                     alt={name}
-                    className="bg-rhino-50 h-full w-full object-cover object-center lg:h-full lg:w-full"
+                    className="bg-scorpion-50 h-full w-full object-cover object-center lg:h-full lg:w-full transition-transform transform-hover:scale-105 duration-300 ease-in-out"
                     loading="lazy"
                     role="presentation"
                     onError={(e) => {
@@ -68,9 +68,12 @@ const ProductListingCard = () => {
                     }}
                   />
                 </div>
-                <div className="flex justify-center items-center p-4">
+                <div className="flex justify-between items-center p-4">
                   <button className="px-6 py-2 text-white rounded-md bg-valid hover:bg-validHover focus:outline-none">
                     Add to Cart
+                  </button>
+                  <button className="px-6 py-2 text-scorpion-500 rounded-md hover:bg-scorpion-400 hover:text-scorpion-900 focus:outline-none">
+                    Wishlist
                   </button>
                 </div>
               </div>
