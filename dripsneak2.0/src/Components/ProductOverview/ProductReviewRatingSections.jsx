@@ -33,20 +33,21 @@ const reviewData = [
 ];
 function ProductReviewRatingSections() {
   return (
-    <div className="container grid grid-cols-1 gap-x-2 gap-y-10 sm:grid-cols-2 items-start xl:gap-x-8">
+    <div className="container grid grid-cols-2 gap-x-2 gap-y-10 sm:grid-cols-2 items-start xl:gap-x-8">
       <RatingSection />
-      <section className="lg:w-5/6 lg:pl-12 flex flex-col items-center lg:items-start">
-        {reviewData.map((review, key) => (
-          <ProductReviews
-            key={key}
-            rating={review.rating}
-            reviewer={review.reviewer}
-            text={review.text}
-            date={review.date}
-          />
-        ))}
-        {/* <ProductReviews /> */}
-      </section>
+      <div className="w-full px-4">
+        <div className="mx-auto w-full max-w-md rounded-2xl bg-white p-2">
+          {reviewData.map((review, key) => (
+            <ProductReviews
+              key={key}
+              rating={review.rating}
+              reviewer={review.reviewer}
+              text={review.text}
+              date={review.date}
+            />
+          ))}
+        </div>
+      </div>
     </div>
   );
 }

@@ -1,26 +1,16 @@
 import { Disclosure } from "@headlessui/react";
 import { MinusIcon, PlusIcon } from "@heroicons/react/24/outline";
 import PropTypes from "prop-types";
-import { useState } from "react";
+//import { useState } from "react";
+import { useProductContext } from "../../context/useMyContext";
 
-export default function CustomDisclosure({
-  section,
-  //setSize,
-  defaultOpen = open,
-}) {
-  const [checkedValues, setCheckedValues] = useState(
-    // Initialize checkedValues based on section.options.checked values
-    section.options.reduce((acc, option) => {
-      acc[option.value] = option.checked;
-      return acc;
-    }, {})
-  );
+export default function CustomDisclosure({ section, defaultOpen = open }) {
+  const { checkedValues, handleCheckboxChange } = useProductContext();
 
-  const handleCheckboxChange = (event) => {
+  const handleCheckboxChangeLocal = (event) => {
     const { value, checked } = event.target;
-    setCheckedValues({ ...checkedValues, [value]: checked });
+    handleCheckboxChange(section.id, value, checked);
   };
-
   return (
     <Disclosure
       as="div"
@@ -54,7 +44,7 @@ export default function CustomDisclosure({
                     type="checkbox"
                     className="h-4 w-4 rounded border-scorpion-300 text-rhino-600 focus:ring-rhino-500"
                     checked={checkedValues[option.value]}
-                    onChange={handleCheckboxChange}
+                    onChange={handleCheckboxChangeLocal}
                   />
                   <label
                     htmlFor={`filter-${section.id}-${optionIdx}`}
@@ -84,5 +74,4 @@ CustomDisclosure.propTypes = {
     ).isRequired,
   }).isRequired,
   defaultOpen: PropTypes.bool,
-  setSize: PropTypes.func.isRequired,
 };

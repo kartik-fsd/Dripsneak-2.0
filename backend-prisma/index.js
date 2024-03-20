@@ -18,6 +18,7 @@ const fetchReview = require("./apis/product/fetchProductReview.js");
 const productIds = require("./apis/product/productIds.js");
 const userIds = require("./apis/auth/userId.js");
 const { searchProducts } = require("./apis/product/search.js");
+const productOverview = require("./apis/product/productOverview.js");
 
 const app = express();
 
@@ -70,6 +71,9 @@ app.use("/product", bulkReviews);
 
 //create search api
 app.get("/product/search", searchProducts);
+
+//fetch the required product detail
+app.use("/product", productOverview);
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {

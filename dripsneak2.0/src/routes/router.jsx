@@ -24,7 +24,10 @@ export const Routers = () => {
         <Route exact path="/" element={<Home />} />
         <Route path="/sneakers" element={<ProductListPage />} />
         <Route path="/search-products" element={<SearchProduct />} />
-        <Route path="/product-overview" element={<ProductOverview />} />
+        <Route
+          path="/product-overview/:productId"
+          element={<ProductOverview />}
+        />
         <Route path="/profile" element={<Profile />} />
         <Route path="/settings" element={<Setting />} />
         {authRole === "SELLER" ? (

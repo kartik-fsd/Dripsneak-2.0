@@ -2,15 +2,18 @@ import PropTypes from "prop-types";
 
 function CartBtn({ handleButtonClick, isClicked }) {
   return (
-    <div className="flex items-center space-x-4 mt-4">
-      <button className="bg-rhino-900 hover:bg-rhino-600 text-rhino-50 font-semibold py-3 px-8 rounded-full transition duration-300 flex items-center justify-center space-x-2">
+    <div className="flex items-center space-x-4 mt-6">
+      <button
+        type="submit"
+        className="flex w-full items-center justify-center rounded-md border border-transparent bg-rhino-600 px-8 py-3 text-base font-medium text-rhino-50 hover:bg-rhino-700 focus:outline-none focus:ring-2 focus:ring-rhino-500 focus:ring-offset-2"
+      >
         <svg
           xmlns="http://www.w3.org/2000/svg"
           fill="none"
           viewBox="0 0 24 24"
           strokeWidth="1.5"
           stroke="currentColor"
-          className="w-6 h-6"
+          className="w-6 h-6 mx-2"
         >
           <path
             strokeLinecap="round"
@@ -18,7 +21,7 @@ function CartBtn({ handleButtonClick, isClicked }) {
             d="M2.25 3h1.386c.51 0 .955.343 1.087.835l.383 1.437M7.5 14.25a3 3 0 0 0-3 3h15.75m-12.75-3h11.218c1.121-2.3 2.1-4.684 2.924-7.138a60.114 60.114 0 0 0-16.536-1.84M7.5 14.25 5.106 5.272M6 20.25a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0Zm12.75 0a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0Z"
           />
         </svg>
-        <span>Add to Cart</span>
+        Add to bag
       </button>
       <button
         className="bg-totem-pole-200 border border-rhino-50 rounded-full p-2 hover:bg-totem-pole-300 transform active:scale-75 transition-transform focus:outline-none"

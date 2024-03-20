@@ -26,9 +26,9 @@ export const filters = [
     id: "category",
     name: "Category",
     options: [
-      { value: "male", label: "Men", checked: false },
-      { value: "female", label: "Women", checked: false },
-      { value: "Kids", label: "Kid's", checked: false },
+      { value: "men", label: "Men", checked: false },
+      { value: "women", label: "Women", checked: false },
+      { value: "kid", label: "Kid's", checked: false },
       { value: "unisex", label: "Unisex", checked: true },
     ],
   },

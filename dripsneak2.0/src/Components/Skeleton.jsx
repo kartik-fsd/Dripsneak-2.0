@@ -57,3 +57,26 @@ export const ProductSkeleton = () => {
     </div>
   );
 };
+
+export const ProductOverviewSkeleton = () => {
+  return (
+    <section className="text-scorpion-900 overflow-hidden bg-scorpion-50">
+      <div className="container px-5 py-20 mx-auto flex flex-col lg:flex-row items-center">
+        <div className="lg:w-1/2 flex justify-center mb-12 lg:mb-0">
+          <div className="bg-scorpion-200 animate-pulse w-full h-96 lg:w-2/3 rounded-lg"></div>
+        </div>
+        <div className="lg:w-1/2 lg:pl-12 flex flex-col items-center lg:items-start">
+          <div className="bg-scorpion-200 animate-pulse w-1/2 h-6 mb-4 rounded"></div>
+          <div className="bg-scorpion-200 animate-pulse w-full h-10 lg:w-3/4 mb-4 rounded"></div>
+          <div className="bg-scorpion-200 animate-pulse w-1/2 h-6 mb-4 rounded"></div>
+          <div className="bg-scorpion-200 animate-pulse w-full h-10 lg:w-3/4 mb-4 rounded"></div>
+          <div className="bg-scorpion-200 animate-pulse w-full h-10 lg:w-3/4 mb-4 rounded"></div>
+          <div className="bg-scorpion-200 animate-pulse w-full h-10 lg:w-3/4 mb-4 rounded"></div>
+          <div className="bg-scorpion-200 animate-pulse w-full h-10 lg:w-3/4 mb-4 rounded"></div>
+          <div className="bg-scorpion-200 animate-pulse w-full h-20 lg:w-3/4 mb-4 rounded"></div>
+          <div className="bg-scorpion-200 animate-pulse w-full h-10 lg:w-3/4 mb-4 rounded"></div>
+        </div>
+      </div>
+    </section>
+  );
+};

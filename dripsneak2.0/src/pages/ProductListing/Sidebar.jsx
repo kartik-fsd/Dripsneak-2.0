@@ -17,14 +17,12 @@ function classNames(...classes) {
 export default function ProductListPage() {
   const [mobileFiltersOpen, setMobileFiltersOpen] = useState(false);
   const [sort, setSort] = useState("Most Popular");
-  const [size, setSize] = useState("");
 
   const getHeaderText = () => {
     // Find the selected option object and return its text property
     const selectedOption = sortOptions.find((option) => option.name === sort);
     return selectedOption?.text || ""; // Use default text if not found
   };
-  console.log(size);
   return (
     <div className="bg-scorpion-50">
       <div>
@@ -75,11 +73,7 @@ export default function ProductListPage() {
                   {/* Filters */}
                   <form className="mt-4 border-t border-scorpion-200">
                     {filters.map((section) => (
-                      <CustomDisclosure
-                        key={section.id}
-                        section={section}
-                        setSize={setSize}
-                      />
+                      <CustomDisclosure key={section.id} section={section} />
                     ))}
                   </form>
                 </Dialog.Panel>
@@ -167,11 +161,7 @@ export default function ProductListPage() {
               {/* Filters */}
               <form className="hidden lg:block ">
                 {filters.map((section) => (
-                  <CustomDisclosure
-                    key={section.id}
-                    section={section}
-                    setSize={setSize}
-                  />
+                  <CustomDisclosure key={section.id} section={section} />
                 ))}
               </form>
 

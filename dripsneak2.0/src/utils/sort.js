@@ -1,4 +1,10 @@
-export const sortProducts = (productData, isLoading, error, sort) => {
+export const sortProducts = (
+  productData,
+  isLoading,
+  error,
+  sort,
+  checkedValues
+) => {
   if (!productData || isLoading || error) {
     return [];
   }
