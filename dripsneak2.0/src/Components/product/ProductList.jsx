@@ -1,12 +1,13 @@
 import { useQuery } from "@tanstack/react-query";
 import { ProductSkeleton } from "../Skeleton";
 import { useNavigate } from "react-router-dom";
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { PropTypes } from "prop-types";
 import { sortProducts } from "../../utils/sort";
 import { useProductContext } from "../../context/useMyContext";
 import ProductCardDetails from "./ProductCard";
 import { CircularPagination } from "../Pagination";
+import scrollTop from "../../utils/scrollTopNav";
 
 const fetchData = async () => {
   return await fetch("http://localhost:3000/product/all-products").then(
@@ -36,6 +37,10 @@ export default function ProductList({ sort }) {
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 9;
   const totalPages = Math.ceil(sortedProducts.length / itemsPerPage);
+  useEffect(() => {
+    // Scroll to the top of the page when currentPage changes
+    scrollTop();
+  }, [currentPage]);
 
   const startIndex = (currentPage - 1) * itemsPerPage;
   const currentProducts = sortedProducts.slice(
