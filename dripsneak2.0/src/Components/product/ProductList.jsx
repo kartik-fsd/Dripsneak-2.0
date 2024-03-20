@@ -17,7 +17,7 @@ const fetchData = async () => {
 
 export default function ProductList({ sort }) {
   const navigate = useNavigate();
-  const { searchProduct, checkedValues } = useProductContext();
+  const { checkedValues } = useProductContext();
 
   const {
     data: productData,
@@ -62,16 +62,6 @@ export default function ProductList({ sort }) {
     <>
       <div className="bg-scorpion-50">
         <div className="mx-auto max-w-2xl px-4 py-2 sm:px-3 sm:py-8 lg:max-w-7xl lg:px-8">
-          {searchProduct && Object.keys(searchProduct).length > 0 && (
-            <div className="grid grid-cols-3 my-2">
-              <div
-                className="group relative cursor-pointer"
-                onClick={() => handleNavigation(searchProduct)}
-              >
-                <ProductCardDetails product={searchProduct} />
-              </div>
-            </div>
-          )}
           <div className=" grid grid-cols-1 gap-x-5 gap-y-10 sm:grid-cols-2 lg:grid-cols-3 xl:gap-x-8">
             {currentProducts.map((product, key) => (
               <div

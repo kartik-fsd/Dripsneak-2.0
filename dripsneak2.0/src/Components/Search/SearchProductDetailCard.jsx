@@ -1,46 +1,85 @@
-import PropTypes from "prop-types";
+import { useState } from "react";
+import { useProductContext } from "../../context/useMyContext";
+import Sidebar from "../sidebar/Sidebar";
+import CustomDisclosure from "../sidebar/Disclosure";
+import { filters } from "../../assets/data";
 import NotFound from "../../assets/notfound2.webp";
 
-function ProductSearchCardDetails({ product }) {
+const ProductListingCard = () => {
+  const { searchProduct } = useProductContext();
+  const [mobileFiltersOpen, setMobileFiltersOpen] = useState(false);
+  const [sort, setSort] = useState("Most Popular");
+  const { brand_name, name, original_price, discounted_price, img } =
+    searchProduct;
+
   return (
-    <div className="flex flex-col mr-4 w-40">
-      <div className="aspect-h-1 aspect-w-1 w-full overflow-hidden rounded-md bg-rhino-50 lg:aspect-none group-hover:opacity-75 lg:h-80">
-        <img
-          src={product.img[0]}
-          alt={product.name}
-          className="bg-rhino-50 h-full w-full object-cover object-center lg:h-full lg:w-full"
-          loading="lazy"
-          role="presentation"
-          onError={(e) => {
-            e.target.src = NotFound;
-          }}
-        />
-      </div>
-      <div className="mt-4">
-        <div className="flex-col justify-center space-y-1">
-          <h3 className="text-xs font-medium text-scorpion-700">
-            {product.name}
-          </h3>
-          <p className="mt-1 text-xs font-normal text-scorpion-500">
-            {product.brand_name}
-          </p>
-        </div>
-        <div className="mt-1 flex items-center justify-between space-x-2">
-          <p className="text-xs font-medium text-scorpion-900">
-            {"₹"}
-            {product.discounted_price}
-          </p>
-          <p className="text-xs font-light text-totem-pole-400 line-through">
-            {"₹"} {product.original_price}
-          </p>
-        </div>
-      </div>
+    <div className="bg-scorpion-50">
+      <Sidebar
+        mobileFiltersOpen={mobileFiltersOpen}
+        setMobileFiltersOpen={setMobileFiltersOpen}
+        sort={sort}
+        setSort={setSort}
+        className="w-1/3" // Fixed-width sidebar
+      />
+      <main className="mx-auto max-w-7xl px-2 sm:px-3 lg:px-4">
+        <section aria-labelledby="products-heading" className="pb-24 pt-6">
+          <h2 id="products-heading" className="sr-only">
+            Products
+          </h2>
+
+          <div className="grid grid-cols-1 gap-x-8 gap-y-10 lg:grid-cols-4">
+            {/* Filters */}
+            <form className="hidden lg:block ">
+              {filters.map((section) => (
+                <CustomDisclosure key={section.id} section={section} />
+              ))}
+            </form>
+
+            {/* Product grid */}
+            <div className="lg:col-span-2">
+              <div className="max-w-md mx-auto bg-rhino-50 shadow-md rounded-md overflow-hidden">
+                <div className="flex justify-between p-4">
+                  <div>
+                    <h3 className="text-lg font-medium text-gray-800">
+                      {brand_name}
+                    </h3>
+                    <h4 className="text-base font-medium text-gray-700">
+                      {name}
+                    </h4>
+                  </div>
+                  <div className="flex items-center">
+                    <p className="text-sm text-gray-500 line-through mr-2">
+                      ₹{original_price.toLocaleString()}
+                    </p>
+                    <p className="text-sm font-medium text-green-500">
+                      ₹{discounted_price.toLocaleString()}
+                    </p>
+                  </div>
+                </div>
+                <div className="aspect-h-1 aspect-w-1 w-full overflow-hidden rounded-md bg-rhino-50 lg:aspect-none group-hover:opacity-75 lg:h-80">
+                  <img
+                    src={img[0]}
+                    alt={name}
+                    className="bg-rhino-50 h-full w-full object-cover object-center lg:h-full lg:w-full"
+                    loading="lazy"
+                    role="presentation"
+                    onError={(e) => {
+                      e.target.src = NotFound;
+                    }}
+                  />
+                </div>
+                <div className="flex justify-center items-center p-4">
+                  <button className="px-6 py-2 text-white rounded-md bg-valid hover:bg-validHover focus:outline-none">
+                    Add to Cart
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+      </main>
     </div>
   );
-}
-
-ProductSearchCardDetails.propTypes = {
-  product: PropTypes.object.isRequired,
 };
 
-export default ProductSearchCardDetails;
+export default ProductListingCard;

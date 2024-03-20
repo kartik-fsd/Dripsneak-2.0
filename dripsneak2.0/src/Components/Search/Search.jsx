@@ -2,13 +2,13 @@ import { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import useDebounce from "../../hook/useDebounce";
 import { useProductContext } from "../../context/useMyContext";
-//import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const SearchBar = () => {
   const [searchQuery, setSearchQuery] = useState("");
   //const [hide, setHide] = useState(true);
   const [showSuggestions, setShowSuggestions] = useState(false);
-  // const navigate = useNavigate();
+  const navigate = useNavigate();
 
   const debouncedValue = useDebounce(searchQuery, 300);
   const { setProduct } = useProductContext();
@@ -30,7 +30,7 @@ const SearchBar = () => {
     setSearchQuery(data.name);
     setProduct(data);
     setShowSuggestions(false);
-    //navigate("/search-products");
+    navigate("/search-products");
   };
 
   const handleSearchChange = (event) => {

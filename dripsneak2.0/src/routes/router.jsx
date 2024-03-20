@@ -9,8 +9,8 @@ import ProductForm from "../pages/dashboard-Pages/add-products";
 
 import Profile from "../pages/profile/Profile.jsx";
 import Setting from "../pages/settings/Setting.jsx";
-import ProductListPage from "../pages/ProductListing/Sidebar.jsx";
-import SearchProduct from "../pages/search-product/SearchProduct.jsx";
+import ProductListingCard from "../Components/Search/SearchProductDetailCard.jsx";
+import ProductListPages from "../pages/ProductListing/ProductListingPage.jsx";
 
 export const Routers = () => {
   const authRole = localStorage.getItem("role");
@@ -22,8 +22,8 @@ export const Routers = () => {
         <Route path="/signin" element={<SignIn />} />
         <Route path="/seller-register" element={<SellerRegister />} />
         <Route exact path="/" element={<Home />} />
-        <Route path="/sneakers" element={<ProductListPage />} />
-        <Route path="/search-products" element={<SearchProduct />} />
+        <Route path="/sneakers" element={<ProductListPages />} />
+        <Route path="/search-products" element={<ProductListingCard />} />
         <Route
           path="/product-overview/:productId"
           element={<ProductOverview />}

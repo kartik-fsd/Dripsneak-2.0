@@ -2,8 +2,8 @@ export const sortProducts = (
   productData,
   isLoading,
   error,
-  sort,
-  checkedValues
+  sort
+  //checkedValues
 ) => {
   if (!productData || isLoading || error) {
     return [];

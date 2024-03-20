@@ -10,6 +10,7 @@ export default {
     colors: {
       white: "#ffffff",
       valid: "#097969",
+      validHover: "#098020",
       rhino: {
         50: "#f2f6fc",
         100: "#e2eaf7",
