@@ -8,6 +8,7 @@ import ProductReviewRatingSections from "../../Components/ProductOverview/Produc
 import { useQuery } from "@tanstack/react-query";
 import { ProductOverviewSkeleton } from "../../Components/Skeleton";
 import scrollTop from "../../utils/scrollTopNav";
+import Breadcrumbs from "../../Components/Breadcrumbs";
 
 export default function ProductOverview() {
   const { productId } = useParams();
@@ -35,6 +36,7 @@ export default function ProductOverview() {
   }
   return (
     <>
+      <Breadcrumbs />
       {isLoading ? (
         <ProductOverviewSkeleton />
       ) : (

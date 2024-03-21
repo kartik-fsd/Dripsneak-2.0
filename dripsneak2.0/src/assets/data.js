@@ -2,10 +2,12 @@ export const sortOptions = [
   {
     name: "Most Popular",
     value: "popular-sneakers",
+    text: "Trending Now",
   }, // Added value property
   {
     name: "Best Rating",
     value: "best-rating",
+    text: "Top Rated",
   }, // Added value property
   {
     name: "Newest",
@@ -14,10 +16,12 @@ export const sortOptions = [
   {
     name: "Price: Low to High",
     value: "price-low-high",
+    text: "New Arrivals",
   }, // Added value property
   {
     name: "Price: High to Low",
     value: "price-high-low",
+    text: "Price (Low to High)",
   },
 ];
 

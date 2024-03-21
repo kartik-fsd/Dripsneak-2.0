@@ -56,7 +56,7 @@ export default function ProductList({ sort }) {
   }
 
   const handleNavigation = (productId) => {
-    navigate(`/product-overview/${productId}`);
+    navigate(`/sneakers/${productId}`);
   };
   return (
     <>

@@ -3,6 +3,7 @@ import Sidebar from "../../Components/sidebar/Sidebar";
 import CustomDisclosure from "../../Components/sidebar/Disclosure";
 import { filters } from "../../assets/data";
 import ProductList from "../../Components/product/ProductList";
+import Breadcrumbs from "../../Components/Breadcrumbs";
 
 function ProductListPages() {
   const [mobileFiltersOpen, setMobileFiltersOpen] = useState(false);
@@ -32,6 +33,7 @@ function ProductListPages() {
 
             {/* Product grid */}
             <div className="lg:col-span-3">
+              <Breadcrumbs />
               <ProductList sort={sort} />
             </div>
           </div>

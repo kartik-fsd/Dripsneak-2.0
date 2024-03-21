@@ -2,11 +2,11 @@ export const renderRatingStars = (rating) => {
   const filledStars = Math.floor(rating); // Number of filled stars
   const totalStars = 5; // Total number of stars
   const stars = [];
-
   // Add filled stars
   for (let i = 0; i < filledStars; i++) {
     stars.push(
       <svg
+        key={`star-filled-${i}`} // Add unique key prop
         fill="currentColor"
         stroke="currentColor"
         strokeLinecap="round"
@@ -24,6 +24,7 @@ export const renderRatingStars = (rating) => {
   for (let i = 0; i < totalStars - filledStars; i++) {
     stars.push(
       <svg
+        key={`star-empty-${i}`} // Add unique key prop
         xmlns="http://www.w3.org/2000/svg"
         fill="none"
         viewBox="0 0 24 24"
