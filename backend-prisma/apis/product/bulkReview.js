@@ -36,9 +36,12 @@ router.post("/reviews/bulk", async (req, res) => {
       await prisma.product.update({
         where: { id: productId },
         data: {
-          rating: parseFloat(averageRating.toFixed(2)),
+          avgRating: parseFloat(averageRating.toFixed(2)),
           reviews: {
             // Increment the existing number of reviews by the number of reviews being added for this product
+            increment: numReviews,
+          },
+          ratings: {
             increment: numReviews,
           },
         },

@@ -25,6 +25,10 @@ const bestRating = require("./apis/product/sort/bestRating.js");
 const lowPrices = require("./apis/product/sort/lowPrice.js");
 const highPrices = require("./apis/product/sort/highPrice.js");
 
+const profile = require("./apis/auth/profile.js");
+const wishList = require("./apis/product/wishList.js");
+const wishListRemove = require("./apis/product/whishListRemove.js");
+
 const app = express();
 
 // Middleware
@@ -91,6 +95,15 @@ app.use("/product", lowPrices);
 
 //fecth the high to low priced product
 app.use("/product", highPrices);
+
+//create a profile of the user
+app.use("/user", profile);
+
+//add item to wish list product
+app.use("/sneaker", wishList);
+
+//remove item from wish list product
+app.use("/sneaker", wishListRemove);
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
