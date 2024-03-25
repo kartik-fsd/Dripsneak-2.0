@@ -58,7 +58,7 @@ export default function ProductOverview() {
               </h1>
               <section className="flex items-center mb-4">
                 <div className="flex items-center">
-                  {renderRatingStars(data.product?.rating)}
+                  {renderRatingStars(data.product?.avgRating)}
                 </div>
                 <span className="text-gray-500 mx-2">|</span>
                 <p className="block font-sans text-base antialiased font-medium leading-relaxed  text-rhino-500 hover:text-rhino-700 cursor-pointer">

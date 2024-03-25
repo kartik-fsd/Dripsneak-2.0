@@ -9,21 +9,26 @@ router.get("/productIds", async (req, res) => {
     const products = await prisma.product.findMany({
       select: {
         id: true,
-        img: true,
-        description: true,
-        name: true,
       },
     });
-    const productIds = products.map((user) => user.img);
-    const productname = products.map((user) => user.name);
-    const productDescription = products.map((user) => user.description);
+    const productIds = products.map((product) => product.id);
+
+    const users = await prisma.user.findMany({
+      where: {
+        role: "USER",
+      },
+      select: {
+        id: true,
+      },
+    });
+
+    const userIds = users.map((user) => user.id);
 
     res.status(200).json({
       success: true,
       message: "Product IDs successfully fetched",
       productIds,
-      productname,
-      productDescription,
+      userIds,
     });
   } catch (error) {
     console.error(error);
