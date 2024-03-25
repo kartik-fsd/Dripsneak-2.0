@@ -45,7 +45,7 @@ export const renderRatingStars = (rating) => {
     <div className="flex items-center">
       {stars}
       <p className="ms-1 text-sm font-medium text-gray-500 dark:text-gray-400">
-        {rating.toFixed(2)} {/* Display rating with two decimal places */}
+        {rating?.toFixed(2)} {/* Display rating with two decimal places */}
       </p>
     </div>
   );

@@ -28,6 +28,9 @@ const highPrices = require("./apis/product/sort/highPrice.js");
 const profile = require("./apis/auth/profile.js");
 const wishList = require("./apis/product/wishList.js");
 const wishListRemove = require("./apis/product/whishListRemove.js");
+const fetchWishList = require("./apis/product/fetchWhishList.js");
+
+const mockUp = require("./Generator/ProductGenerator.js");
 
 const app = express();
 
@@ -104,6 +107,12 @@ app.use("/sneaker", wishList);
 
 //remove item from wish list product
 app.use("/sneaker", wishListRemove);
+
+//fetch items form the wishlist
+app.use("/sneaker", fetchWishList);
+
+//fetch mockup data
+app.use("/sneaker", mockUp);
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
