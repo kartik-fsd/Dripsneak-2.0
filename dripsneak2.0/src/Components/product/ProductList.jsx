@@ -19,6 +19,8 @@ export default function ProductList({ sort }) {
   const navigate = useNavigate();
   const { checkedValues } = useProductContext();
 
+  console.log(checkedValues);
+
   const {
     data: productData,
     isLoading,

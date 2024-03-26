@@ -43,7 +43,7 @@ export default function CustomDisclosure({ section, defaultOpen = open }) {
                     defaultValue={option.value}
                     type="checkbox"
                     className="h-4 w-4 rounded border-scorpion-300 text-rhino-600 focus:ring-rhino-500"
-                    checked={checkedValues[option.value]}
+                    checked={checkedValues[section.id]?.[option.value]}
                     onChange={handleCheckboxChangeLocal}
                   />
                   <label

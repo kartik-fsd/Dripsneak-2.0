@@ -33,7 +33,7 @@ export const filters = [
     options: [
       { value: "men", label: "Men", checked: false },
       { value: "women", label: "Women", checked: false },
-      { value: "kid", label: "Kid's", checked: false },
+      { value: "kids", label: "Kid's", checked: false },
       { value: "unisex", label: "Unisex", checked: true },
     ],
   },
