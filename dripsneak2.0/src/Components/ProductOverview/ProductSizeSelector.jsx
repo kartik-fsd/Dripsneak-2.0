@@ -7,6 +7,16 @@ const ProductSizeSelector = ({ sizes }) => {
   function classNames(...classes) {
     return classes.filter(Boolean).join(" ");
   }
+
+  const uniqueData = new Set(sizes);
+  const sortedUniqueData = new Set(
+    [...uniqueData].sort((a, b) => {
+      const numA = parseInt(a.substring(3)); // Extract numeric suffix from string
+      const numB = parseInt(b.substring(3)); // Extract numeric suffix from string
+      return numA - numB; // Compare numeric suffixes
+    })
+  );
+  console.log(sortedUniqueData);
   return (
     <RadioGroup value={selectedSize} onChange={setSelectedSize}>
       <div className="mt-2">
@@ -27,7 +37,7 @@ const ProductSizeSelector = ({ sizes }) => {
         >
           <RadioGroup.Label className="sr-only">Choose a size</RadioGroup.Label>
           <div className="grid grid-cols-5 gap-4">
-            {sizes.map((size) => (
+            {Array.from(sortedUniqueData)?.map((size) => (
               <RadioGroup.Option
                 key={size}
                 value={size}
