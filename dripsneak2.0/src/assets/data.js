@@ -12,16 +12,17 @@ export const sortOptions = [
   {
     name: "Newest",
     value: "all-products",
+    text: "New Arrivals",
   }, // Added value property
   {
     name: "Price: Low to High",
     value: "price-low-high",
-    text: "New Arrivals",
+    text: "Price (Low to High)",
   }, // Added value property
   {
     name: "Price: High to Low",
     value: "price-high-low",
-    text: "Price (Low to High)",
+    text: "Price (High to Low)",
   },
 ];
 

@@ -112,7 +112,7 @@ app.use("/sneaker", wishListRemove);
 app.use("/sneaker", fetchWishList);
 
 //fetch mockup data
-app.use("/sneaker", mockUp);
+//app.use("/sneaker", mockUp);
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {

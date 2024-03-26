@@ -1,5 +1,7 @@
+import { useMemo } from "react";
 import { ChevronLeftIcon, ChevronRightIcon } from "@heroicons/react/24/outline";
 import PropTypes from "prop-types";
+
 export function CircularPagination({
   currentPage,
   setCurrentPage,
@@ -19,15 +21,19 @@ export function CircularPagination({
   const prev = () => {
     setCurrentPage((prevPage) => Math.max(prevPage - 1, 1));
   };
-  let visiblePageButtons = 5;
-  if (totalPages < 5) {
-    visiblePageButtons = totalPages;
-  } else if (window.innerWidth <= 768) {
-    visiblePageButtons = 3;
-  }
+
+  const rangeStart = Math.max(1, currentPage - 2);
+  const rangeEnd = Math.min(totalPages, rangeStart + 4);
+
+  const buttons = useMemo(() => {
+    return Array.from(
+      { length: rangeEnd - rangeStart + 1 },
+      (_, index) => rangeStart + index
+    );
+  }, [rangeStart, rangeEnd]);
 
   return (
-    <div className="flex items-center justify-center py-4 gap-4 mt-5">
+    <div className="flex flex-col items-center justify-center py-4 gap-4 mt-5 sm:flex-row sm:justify-center sm:gap-2 md:gap-4">
       <button
         className="flex items-center gap-2 rounded-full px-3 py-1 text-scorpion-800 sm:text-xs md:text-base lg:text-lg"
         onClick={prev}
@@ -36,9 +42,9 @@ export function CircularPagination({
         <ChevronLeftIcon className="h-4 w-4" /> Previous
       </button>
       <div className="flex items-center gap-2">
-        {[...Array(visiblePageButtons).keys()].map((index) => (
-          <button key={index + 1} {...getItemProps(index + 1)}>
-            {index + 1}
+        {buttons.map((index) => (
+          <button key={`page-${index}`} {...getItemProps(index)}>
+            {index}
           </button>
         ))}
       </div>
@@ -52,6 +58,7 @@ export function CircularPagination({
     </div>
   );
 }
+
 CircularPagination.propTypes = {
   currentPage: PropTypes.number.isRequired,
   setCurrentPage: PropTypes.func.isRequired,
