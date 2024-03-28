@@ -7,7 +7,7 @@ const router = Router();
 
 const prisma = new PrismaClient();
 const JWT_SECRET_KEY = process.env.JWT_SECRET_KEY;
-router.post("/profile", authorizedUser, async (req, res) => {
+router.post("/add-profile", authorizedUser, async (req, res) => {
   const { profileImg, dateOfBirth, shippingAddress, billingAddress, pincode } =
     req.body;
 

@@ -63,8 +63,7 @@ const ProductForm = () => {
 
   const handleSubmit = (values, { setSubmitting, resetForm }) => {
     // Handle form submission
-    console.log(values, localStorage.getItem("auth-token"));
-    // setCloudinaryUrls([]); // Clear cloudinaryUrls
+
     const header = {
       withCredentials: true,
       headers: {

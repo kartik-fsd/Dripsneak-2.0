@@ -29,6 +29,8 @@ const profile = require("./apis/auth/profile.js");
 const wishList = require("./apis/product/wishList.js");
 const wishListRemove = require("./apis/product/whishListRemove.js");
 const fetchWishList = require("./apis/product/fetchWhishList.js");
+const addProfile = require("./apis/auth/profile.js");
+const getProfile = require("./apis/auth/getProfile.js");
 
 const mockUp = require("./Generator/ProductGenerator.js");
 
@@ -113,6 +115,12 @@ app.use("/sneaker", fetchWishList);
 
 //fetch mockup data
 //app.use("/sneaker", mockUp);
+
+//add profile detail of user
+app.use("/user", addProfile);
+
+//get profile details of user
+app.use("/user", getProfile);
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
