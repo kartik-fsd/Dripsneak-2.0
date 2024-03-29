@@ -122,6 +122,7 @@ const Profile = () => {
                   type="text"
                   name="billingAddress"
                 />
+                <EditableField label="Pinocde" type="text" name="pincode" />
               </div>
               <button
                 type="submit"

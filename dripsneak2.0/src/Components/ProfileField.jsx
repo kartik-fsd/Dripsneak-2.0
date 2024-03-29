@@ -30,7 +30,6 @@ const EditableField = ({ label, type, name, value, onChange, as }) => {
       <section className="relative flex items-center space-x-4">
         {type === "date" ? (
           <Field
-            as={as}
             type={type}
             name={name}
             id={name}
@@ -45,6 +44,7 @@ const EditableField = ({ label, type, name, value, onChange, as }) => {
           />
         ) : (
           <Field
+            as={as}
             type={type}
             name={name}
             id={name}
