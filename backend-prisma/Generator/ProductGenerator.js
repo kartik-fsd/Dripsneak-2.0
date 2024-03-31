@@ -477,7 +477,7 @@ const mockupData = generateMockupData();
 const jsonData = JSON.stringify(mockupData, null, 2);
 
 // Logging JSON data
-console.log(jsonData);
+// console.log(jsonData);
 router.get("/mockdata", (req, res) => {
   // Generate mockup data
   const mockupData = generateMockupData();

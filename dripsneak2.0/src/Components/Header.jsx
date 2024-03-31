@@ -26,7 +26,7 @@ export default function Header() {
       localStorage.removeItem("auth-token");
       localStorage.removeItem("role");
       // Call logout endpoint on the server
-      await axios.get("http://localhost:3000/user/logout");
+      await axios.post("http://localhost:3000/user/logout");
       // Redirect to signin page
       navigate("/signin");
       console.log("del");

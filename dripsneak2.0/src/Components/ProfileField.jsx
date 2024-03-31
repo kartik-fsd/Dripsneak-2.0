@@ -4,7 +4,6 @@ import { PencilIcon } from "@heroicons/react/24/solid";
 import { Field } from "formik";
 
 const EditableField = ({ label, type, name, value, onChange, as }) => {
-  //const [editable, setEditable] = useState(!readOnly);
   // Inside your functional component
   const [editable, setEditable] = useState({
     firstName: false,
@@ -53,6 +52,7 @@ const EditableField = ({ label, type, name, value, onChange, as }) => {
                 ? "text-scorpion-800 cursor-text"
                 : "bg-scorpion-100 text-opacity-70 text-scorpion-600 cursor-not-allowed"
             }`}
+            readOnly={!editable[name]}
           />
         )}
         <PencilIcon

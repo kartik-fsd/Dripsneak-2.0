@@ -6,7 +6,7 @@ import PriceAndAvailable from "../../Components/ProductOverview/PriceAndAvailabl
 import CartBtn from "../../Components/ProductOverview/CartBtn";
 import ProductReviewRatingSections from "../../Components/ProductOverview/ProductReviewRatingSections";
 import { useQuery } from "@tanstack/react-query";
-import { ProductOverviewSkeleton } from "../../Components/Skeleton";
+import { ProductOverviewSkeleton } from "../../Components/loader/Skeleton";
 import scrollTop from "../../utils/scrollTopNav";
 import Breadcrumbs from "../../Components/Breadcrumbs";
 

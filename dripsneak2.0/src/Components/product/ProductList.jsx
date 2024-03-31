@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
-import { ProductSkeleton } from "../Skeleton";
+import { ProductSkeleton } from "../loader/Skeleton";
 import { useNavigate } from "react-router-dom";
 import { useEffect, useMemo, useState } from "react";
 import { PropTypes } from "prop-types";

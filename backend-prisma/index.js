@@ -31,6 +31,7 @@ const wishListRemove = require("./apis/product/whishListRemove.js");
 const fetchWishList = require("./apis/product/fetchWhishList.js");
 const addProfile = require("./apis/auth/profile.js");
 const getProfile = require("./apis/auth/getProfile.js");
+const editProfile = require("./apis/auth/EditProfile.js");
 
 const mockUp = require("./Generator/ProductGenerator.js");
 
@@ -121,6 +122,9 @@ app.use("/user", addProfile);
 
 //get profile details of user
 app.use("/user", getProfile);
+
+//edit the profile details of user
+app.use("/user", editProfile);
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
