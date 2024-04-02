@@ -47,10 +47,8 @@ export default function SignIn() {
                   showSuccessToast(response.data.message);
                   RoleAuth(response.data.token);
                   document.cookie = `authToken=${response.data.token}; path=/`;
-                  setTimeout(() => {
-                    resetForm();
-                    navigate("/sneakers");
-                  }, 800);
+                  resetForm();
+                  navigate("/sneakers");
                 })
                 .catch((error) => {
                   // Handle error responses from the backend

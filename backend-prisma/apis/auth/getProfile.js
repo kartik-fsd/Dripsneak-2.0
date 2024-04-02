@@ -28,7 +28,7 @@ router.get("/profile", authorizedUser, async (req, res) => {
       },
     });
 
-    if (!profile) {
+    if (!profile && !userDetails) {
       return res
         .status(404)
         .json({ success: false, message: "Profile not found" });
@@ -39,11 +39,10 @@ router.get("/profile", authorizedUser, async (req, res) => {
       firstName: userDetails.firstName,
       lastName: userDetails.lastName,
       email: userDetails.email,
-      profileImg: profile.profileImg,
-      dateOfBirth: profile.dateOfBirth.toISOString(), // Convert date to ISO string
-      shippingAddress: profile.shippingAddress,
-      billingAddress: profile.billingAddress,
-      pincode: profile.pincode,
+      dateOfBirth: profile?.dateOfBirth, // Convert date to ISO string
+      shippingAddress: profile?.shippingAddress,
+      billingAddress: profile?.billingAddress,
+      pincode: profile?.pincode,
     };
 
     return res.status(200).json({ success: true, profile: sanitizedProfile });

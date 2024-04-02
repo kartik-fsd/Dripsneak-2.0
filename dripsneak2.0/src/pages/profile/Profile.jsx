@@ -33,25 +33,26 @@ const Profile = () => {
         "http://localhost:3000/user/profile",
         header
       );
+      console.log(response, "kl");
       const {
+        firstName,
+        lastName,
+        email,
         dateOfBirth,
         shippingAddress,
         billingAddress,
         pincode,
-        firstName,
-        email,
-        lastName,
       } = response.data.profile;
-      const formattedDateOfBirth = dateOfBirth.slice(0, 10);
+      const formattedDateOfBirth = dateOfBirth?.slice(0, 10);
       console.log(response.data.profile, "data");
       setUserData({
+        firstName,
+        lastName,
+        email,
         dateOfBirth: formattedDateOfBirth,
         shippingAddress,
         billingAddress,
         pincode,
-        firstName,
-        email,
-        lastName,
       });
     } catch (error) {
       console.error("Error fetching user data:", error);

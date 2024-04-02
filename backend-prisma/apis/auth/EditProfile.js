@@ -1,14 +1,13 @@
 const { PrismaClient } = require("@prisma/client");
 const { Router } = require("express");
 const authorizedUser = require("../../middleware/authorizedUser");
+
 // Create a router
 const router = Router();
-
 const prisma = new PrismaClient();
 
 router.put("/edit-profile", authorizedUser, async (req, res) => {
   const userId = req.user.userId;
-
   const {
     firstName,
     lastName,
@@ -21,43 +20,56 @@ router.put("/edit-profile", authorizedUser, async (req, res) => {
   } = req.body;
 
   try {
+    let user = await prisma.user.findUnique({
+      where: {
+        id: userId,
+      },
+    });
+
+    if (!user) {
+      return res
+        .status(404)
+        .json({ success: false, message: "User not found" });
+    }
+
     let profile = await prisma.profile.findUnique({
       where: {
         userId,
       },
     });
 
-    if (!profile)
-      return res
-        .status(404)
-        .json({ success: false, message: "Profile not found" });
+    const updateData = {
+      profileImg,
+      dateOfBirth,
+      shippingAddress,
+      billingAddress,
+      pincode,
+    };
 
-    const updateProfile = await prisma.profile.update({
-      where: { userId },
-      select: {
-        id: false,
-        userId: false,
-        billingAddress: true,
-        shippingAddress: true,
-        dateOfBirth: true,
-        pincode: true,
-      },
-      data: {
-        profileImg,
-        dateOfBirth,
-        shippingAddress,
-        billingAddress,
-        pincode,
-      },
-    });
-    const updateUser = await prisma.user.update({
-      where: { id: userId },
-      select: {
-        id: false,
-        firstName: true,
-        lastName: true,
-        password: false,
-        email: true,
+    if (!profile) {
+      // Create profile if not exists
+      profile = await prisma.profile.create({
+        data: {
+          ...updateData,
+          user: {
+            connect: { id: userId },
+          },
+        },
+      });
+    } else {
+      // Update profile if exists
+      profile = await prisma.profile.update({
+        where: {
+          userId,
+        },
+        data: updateData,
+      });
+    }
+
+    // Update user details
+    const updatedUser = await prisma.user.update({
+      where: {
+        id: userId,
       },
       data: {
         firstName,
@@ -65,14 +77,13 @@ router.put("/edit-profile", authorizedUser, async (req, res) => {
         email,
       },
     });
-    // Return success response with the updated product details
-    res.status(202).json({
+
+    // Return success response with the updated user profile
+    res.status(200).json({
       success: true,
       message: "Profile updated successfully",
-      profile: {
-        updateUser,
-        updateProfile,
-      },
+      profile,
+      user: updatedUser,
     });
   } catch (error) {
     // Handle errors and return an internal server error response
@@ -83,4 +94,5 @@ router.put("/edit-profile", authorizedUser, async (req, res) => {
     await prisma.$disconnect();
   }
 });
+
 module.exports = router;

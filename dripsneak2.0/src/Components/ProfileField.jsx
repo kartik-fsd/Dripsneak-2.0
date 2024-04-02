@@ -1,6 +1,6 @@
 import PropTypes from "prop-types";
 import { useState } from "react";
-import { PencilIcon, XCircleIcon } from "@heroicons/react/24/solid";
+import { PencilIcon } from "@heroicons/react/24/solid";
 import { Field } from "formik";
 
 const EditableField = ({ label, type, name, value, onChange, as }) => {
