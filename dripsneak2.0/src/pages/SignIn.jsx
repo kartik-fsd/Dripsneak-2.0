@@ -6,6 +6,7 @@ import { Formik } from "formik";
 import { showErrorToast, showSuccessToast } from "../Components/Toast";
 import axios from "axios";
 import { RoleAuth } from "../utils/tokenRoleAuth";
+import Spinner from "../Components/loader/Spinner";
 
 export default function SignIn() {
   const navigate = useNavigate();
@@ -71,83 +72,89 @@ export default function SignIn() {
               isSubmitting,
             }) => (
               <>
-                <form
-                  className="space-y-4"
-                  action="#"
-                  method="POST"
-                  onSubmit={handleSubmit}
-                >
+                {isSubmitting ? (
+                  <Spinner message="Signing you in" />
+                ) : (
                   <>
-                    <InputBar
-                      label="Email address"
-                      id="email"
-                      name="email"
-                      type="email"
-                      autoComplete="email"
-                      placeholder="example@example.com"
-                      onChange={handleChange}
-                      onBlur={handleBlur}
-                      value={values.email}
-                    />
-                    {errors.email && touched.email && (
-                      <ErrorComponent error={errors.email} />
-                    )}
-                  </>
-                  <>
-                    <PasswordField
-                      label="Password"
-                      id="password"
-                      name="password"
-                      type="password"
-                      autoComplete="current-password"
-                      placeholder="password"
-                      value={values.password}
-                      onChange={handleChange}
-                      onBlur={handleBlur}
-                    />
-                    {errors.password && touched.password && (
-                      <ErrorComponent error={errors.password} />
-                    )}
-                  </>
-
-                  <>
-                    <button
-                      type="submit"
-                      disabled={isSubmitting}
-                      className="flex w-full justify-center rounded-md text-rhino-50 bg-rhino-600  px-3 py-2 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-rhino-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-rhino-600"
+                    <form
+                      className="space-y-4"
+                      action="#"
+                      method="POST"
+                      onSubmit={handleSubmit}
                     >
-                      Sign in
-                    </button>
-                  </>
-                </form>
+                      <>
+                        <InputBar
+                          label="Email address"
+                          id="email"
+                          name="email"
+                          type="email"
+                          autoComplete="email"
+                          placeholder="example@example.com"
+                          onChange={handleChange}
+                          onBlur={handleBlur}
+                          value={values.email}
+                        />
+                        {errors.email && touched.email && (
+                          <ErrorComponent error={errors.email} />
+                        )}
+                      </>
+                      <>
+                        <PasswordField
+                          label="Password"
+                          id="password"
+                          name="password"
+                          type="password"
+                          autoComplete="current-password"
+                          placeholder="password"
+                          value={values.password}
+                          onChange={handleChange}
+                          onBlur={handleBlur}
+                        />
+                        {errors.password && touched.password && (
+                          <ErrorComponent error={errors.password} />
+                        )}
+                      </>
 
-                <p className="mt-10 text-center text-sm text-gray-500">
-                  Not a member?{" "}
-                  <Link
-                    to="/register"
-                    className="font-semibold leading-6 text-rhino-600 hover:text-rhino-500"
-                  >
-                    Create account
-                  </Link>
-                </p>
-                <div className="flex items-center before:h-px before:flex-1  before:bg-scorpion-300 before:content-[''] after:h-px after:flex-1 after:bg-scorpion-300  after:content-['']">
-                  <button
-                    type="button"
-                    className="bg-secondary-50 px-3 py-2 text-center text-sm font-medium text-scorpion-900"
-                  >
-                    Or
-                  </button>
-                </div>
-                <p className="mt-2 text-center text-sm text-scorpion-500">
-                  Create a account as seller?{" "}
-                  <Link
-                    to="/seller-register"
-                    className="font-semibold leading-6 text-rhino-600 hover:text-rhino-500"
-                    disabled={isSubmitting}
-                  >
-                    Register as seller
-                  </Link>
-                </p>
+                      <>
+                        <button
+                          type="submit"
+                          disabled={isSubmitting}
+                          className="flex w-full justify-center rounded-md bg-rhino-600  px-3 py-2 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-rhino-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-rhino-600"
+                        >
+                          Sign in
+                        </button>
+                      </>
+                    </form>
+
+                    <p className="mt-10 text-center text-sm text-gray-500">
+                      Not a member?{" "}
+                      <Link
+                        to="/register"
+                        className="font-semibold leading-6 text-rhino-600 hover:text-rhino-500"
+                      >
+                        Create account
+                      </Link>
+                    </p>
+                    <div className="flex items-center before:h-px before:flex-1  before:bg-scorpion-300 before:content-[''] after:h-px after:flex-1 after:bg-scorpion-300  after:content-['']">
+                      <button
+                        type="button"
+                        className="bg-secondary-50 px-3 py-2 text-center text-sm font-medium text-scorpion-900"
+                      >
+                        Or
+                      </button>
+                    </div>
+                    <p className="mt-2 text-center text-sm text-scorpion-500">
+                      Create a account as seller?{" "}
+                      <Link
+                        to="/seller-register"
+                        className="font-semibold leading-6 text-rhino-600 hover:text-rhino-500"
+                        disabled={isSubmitting}
+                      >
+                        Register as seller
+                      </Link>
+                    </p>
+                  </>
+                )}
               </>
             )}
           </Formik>

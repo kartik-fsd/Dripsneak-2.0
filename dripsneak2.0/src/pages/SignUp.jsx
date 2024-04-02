@@ -5,6 +5,7 @@ import InputBar from "../Components/inputBar";
 import axios from "axios";
 import { showErrorToast, showSuccessToast } from "../Components/Toast";
 import { RoleAuth } from "../utils/tokenRoleAuth";
+import Spinner from "../Components/loader/Spinner";
 
 // eslint-disable-next-line react/prop-types
 export const ErrorComponent = ({ error }) => (
@@ -91,131 +92,137 @@ export default function Register() {
               isSubmitting,
             }) => (
               <>
-                <form
-                  className="space-y-4"
-                  action="#"
-                  method="POST"
-                  onSubmit={handleSubmit}
-                >
+                {isSubmitting ? (
+                  <Spinner message="Setting up your account" />
+                ) : (
                   <>
-                    <InputBar
-                      label="First Name"
-                      id="firstName"
-                      name="firstName"
-                      type="text"
-                      autoComplete="text"
-                      placeholder="First Name"
-                      onChange={handleChange}
-                      onBlur={handleBlur}
-                      value={values.firstName}
-                    />
-                    {errors.firstName && touched.firstName && (
-                      <ErrorComponent error={errors.firstName} />
-                    )}
-                  </>
-                  <>
-                    <InputBar
-                      label="Last Name"
-                      id="lastName"
-                      name="lastName"
-                      type="text"
-                      autoComplete="text"
-                      placeholder="Last Name"
-                      onChange={handleChange}
-                      onBlur={handleBlur}
-                      value={values.lastName}
-                    />
-                    {errors.lastName && touched.lastName && (
-                      <ErrorComponent error={errors.lastName} />
-                    )}
-                  </>
-                  <>
-                    <InputBar
-                      label="Email"
-                      id="email"
-                      name="email"
-                      type="email"
-                      autoComplete="email"
-                      placeholder="example@example.com"
-                      onChange={handleChange}
-                      onBlur={handleBlur}
-                      value={values.email}
-                    />
-                    {errors.email && touched.email && (
-                      <ErrorComponent error={errors.email} />
-                    )}
-                  </>
-                  <>
-                    <PasswordField
-                      label="Password"
-                      id="password"
-                      name="password"
-                      placeholder="Password (minimum 8 characters)"
-                      autoComplete="current-password"
-                      value={values.password}
-                      onChange={handleChange}
-                      onBlur={handleBlur}
-                    />
-                    {errors.password && touched.password && (
-                      <ErrorComponent error={errors.password} />
-                    )}
-                  </>
-
-                  <>
-                    {" "}
-                    <PasswordField
-                      label="Confirm Password"
-                      id="confirmPassword"
-                      name="confirmPassword"
-                      autoComplete="current-password"
-                      placeholder="renter the password"
-                      onChange={handleChange}
-                      onBlur={handleBlur}
-                      value={values.confirmPassword}
-                    />
-                    {errors.confirmPassword && touched.confirmPassword && (
-                      <ErrorComponent error={errors.confirmPassword} />
-                    )}
-                  </>
-
-                  <div>
-                    <button
-                      type="submit"
-                      className="flex w-full justify-center rounded-md bg-rhino-600  px-3  py-2 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-rhino-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-rhino-600"
+                    <form
+                      className="space-y-4"
+                      action="#"
+                      method="POST"
+                      onSubmit={handleSubmit}
                     >
-                      Create Account
-                    </button>
-                  </div>
-                </form>
+                      <>
+                        <InputBar
+                          label="First Name"
+                          id="firstName"
+                          name="firstName"
+                          type="text"
+                          autoComplete="text"
+                          placeholder="First Name"
+                          onChange={handleChange}
+                          onBlur={handleBlur}
+                          value={values.firstName}
+                        />
+                        {errors.firstName && touched.firstName && (
+                          <ErrorComponent error={errors.firstName} />
+                        )}
+                      </>
+                      <>
+                        <InputBar
+                          label="Last Name"
+                          id="lastName"
+                          name="lastName"
+                          type="text"
+                          autoComplete="text"
+                          placeholder="Last Name"
+                          onChange={handleChange}
+                          onBlur={handleBlur}
+                          value={values.lastName}
+                        />
+                        {errors.lastName && touched.lastName && (
+                          <ErrorComponent error={errors.lastName} />
+                        )}
+                      </>
+                      <>
+                        <InputBar
+                          label="Email"
+                          id="email"
+                          name="email"
+                          type="email"
+                          autoComplete="email"
+                          placeholder="example@example.com"
+                          onChange={handleChange}
+                          onBlur={handleBlur}
+                          value={values.email}
+                        />
+                        {errors.email && touched.email && (
+                          <ErrorComponent error={errors.email} />
+                        )}
+                      </>
+                      <>
+                        <PasswordField
+                          label="Password"
+                          id="password"
+                          name="password"
+                          placeholder="Password (minimum 8 characters)"
+                          autoComplete="current-password"
+                          value={values.password}
+                          onChange={handleChange}
+                          onBlur={handleBlur}
+                        />
+                        {errors.password && touched.password && (
+                          <ErrorComponent error={errors.password} />
+                        )}
+                      </>
 
-                <p className="mt-10 text-center text-sm text-scorpion-500">
-                  Already have a account?{" "}
-                  <Link
-                    to="/signin"
-                    className="font-semibold leading-6 text-rhino-600 hover:text-rhino-500"
-                    disabled={isSubmitting}
-                  >
-                    Sign In
-                  </Link>
-                </p>
-                <div className="flex items-center before:h-px before:flex-1  before:bg-scorpion-300 before:content-[''] after:h-px after:flex-1 after:bg-scorpion-300  after:content-['']">
-                  <button
-                    type="button"
-                    className="bg-secondary-50 px-3 py-2 text-center text-sm font-medium text-scorpion-900"
-                  >
-                    Or
-                  </button>
-                </div>
-                <p className="mt-2 text-center text-sm text-scorpion-500">
-                  Create a account as seller?{" "}
-                  <Link
-                    to="/seller-register"
-                    className="font-semibold leading-6 text-rhino-600 hover:text-rhino-500"
-                    disabled={isSubmitting}
-                  >
-                    Register as seller
-                  </Link>
-                </p>
+                      <>
+                        {" "}
+                        <PasswordField
+                          label="Confirm Password"
+                          id="confirmPassword"
+                          name="confirmPassword"
+                          autoComplete="current-password"
+                          placeholder="renter the password"
+                          onChange={handleChange}
+                          onBlur={handleBlur}
+                          value={values.confirmPassword}
+                        />
+                        {errors.confirmPassword && touched.confirmPassword && (
+                          <ErrorComponent error={errors.confirmPassword} />
+                        )}
+                      </>
+
+                      <div>
+                        <button
+                          type="submit"
+                          className="flex w-full justify-center rounded-md bg-rhino-600  px-3  py-2 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-rhino-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-rhino-600"
+                        >
+                          Create Account
+                        </button>
+                      </div>
+                    </form>
+
+                    <p className="mt-10 text-center text-sm text-scorpion-500">
+                      Already have a account?{" "}
+                      <Link
+                        to="/signin"
+                        className="font-semibold leading-6 text-rhino-600 hover:text-rhino-500"
+                        disabled={isSubmitting}
+                      >
+                        Sign In
+                      </Link>
+                    </p>
+                    <div className="flex items-center before:h-px before:flex-1  before:bg-scorpion-300 before:content-[''] after:h-px after:flex-1 after:bg-scorpion-300  after:content-['']">
+                      <button
+                        type="button"
+                        className="bg-secondary-50 px-3 py-2 text-center text-sm font-medium text-scorpion-900"
+                      >
+                        Or
+                      </button>
+                    </div>
+                    <p className="mt-2 text-center text-sm text-scorpion-500">
+                      Create a account as seller?{" "}
+                      <Link
+                        to="/seller-register"
+                        className="font-semibold leading-6 text-rhino-600 hover:text-rhino-500"
+                        disabled={isSubmitting}
+                      >
+                        Register as seller
+                      </Link>
+                    </p>
+                  </>
+                )}
               </>
             )}
           </Formik>

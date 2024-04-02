@@ -1,9 +1,10 @@
-function Spinner() {
+import PropTypes from "prop-types";
+function Spinner({ message }) {
   return (
     <div
       aria-label="Loading..."
       role="status"
-      className="h-screen flex items-center space-x-2"
+      className="flex items-center space-x-2 justify-center px-10"
     >
       <svg
         className="h-20 w-20 animate-spin stroke-rhino-500"
@@ -82,9 +83,11 @@ function Spinner() {
           strokeWidth="24"
         ></line>
       </svg>
-      <span className="text-4xl font-medium text-rhino-500">Saving...</span>
+      <span className="text-xl font-medium text-rhino-500">{message}...</span>
     </div>
   );
 }
-
+Spinner.propTypes = {
+  message: PropTypes.string.isRequired,
+};
 export default Spinner;

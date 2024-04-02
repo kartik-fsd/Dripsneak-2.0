@@ -129,7 +129,7 @@ const Profile = () => {
       >
         {({ isSubmitting, setFieldValue }) =>
           isSubmitting ? (
-            <Spinner />
+            <Spinner message="Saving" />
           ) : (
             <Form className="flex flex-col space-y-5 profile-form">
               <div className="flex flex-col items-center justify-center relative z-10">

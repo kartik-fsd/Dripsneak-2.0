@@ -1,6 +1,6 @@
 import PropTypes from "prop-types";
 import { useState } from "react";
-import { PencilIcon } from "@heroicons/react/24/solid";
+import { PencilIcon, XCircleIcon } from "@heroicons/react/24/solid";
 import { Field } from "formik";
 
 const EditableField = ({ label, type, name, value, onChange, as }) => {
@@ -55,10 +55,23 @@ const EditableField = ({ label, type, name, value, onChange, as }) => {
             readOnly={!editable[name]}
           />
         )}
-        <PencilIcon
-          className="h-6 w-6 cursor-pointer text-scorpion-700 active:text-rhino-500"
+
+        <span
+          className={`text-sm text-rhino-700 cursor-pointer flex items-center ${
+            editable[name] ? "opacity-50" : ""
+          }`}
           onClick={() => handleEditToggle(name)}
-        />
+        >
+          <PencilIcon className="h-4 w-4 mx-2" /> Edit
+        </span>
+
+        {/* <span
+            className={`text-sm text-rhino-700 cursor-pointer flex items-center ${
+              editable[name] ? "opacity-50" : ""
+            }`}
+            onClick={() => handleEditToggle(name)}
+          >
+            <XCircleIcon className="h-5 w-5 mx-2" /> Cancel</span> */}
       </section>
     </>
   );
