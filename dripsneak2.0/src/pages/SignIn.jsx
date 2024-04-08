@@ -1,7 +1,7 @@
 import { Link, useNavigate } from "react-router-dom";
-import InputBar from "../Components/inputBar";
+import InputBar from "../Components/InputFields/inputBar";
 import { ErrorComponent } from "./SignUp";
-import PasswordField from "../Components/passwordField";
+import PasswordField from "../Components/InputFields/passwordField";
 import { Formik } from "formik";
 import { showErrorToast, showSuccessToast } from "../Components/Toast";
 import axios from "axios";
@@ -17,7 +17,7 @@ export default function SignIn() {
           <h2 className="mt-10 text-center text-3xl font-bold leading-9 tracking-tight text-rhino-900">
             DRIPSNEAK
           </h2>
-          <h2 className="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">
+          <h2 className="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-scorpion-900">
             Sign in to your account
           </h2>
         </div>
@@ -124,7 +124,7 @@ export default function SignIn() {
                       </>
                     </form>
 
-                    <p className="mt-10 text-center text-sm text-gray-500">
+                    <p className="mt-10 text-center text-sm text-scorpion-500">
                       Not a member?{" "}
                       <Link
                         to="/register"

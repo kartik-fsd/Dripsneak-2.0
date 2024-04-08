@@ -1,11 +1,11 @@
 import { Link, useNavigate } from "react-router-dom";
 import { Formik } from "formik";
-import PasswordField from "../Components/passwordField";
-import InputBar from "../Components/inputBar";
+import InputBar from "../Components/InputFields/inputBar";
 import axios from "axios";
 import { showErrorToast, showSuccessToast } from "../Components/Toast";
 import { RoleAuth } from "../utils/tokenRoleAuth";
 import Spinner from "../Components/loader/Spinner";
+import PasswordField from "../Components/InputFields/passwordField";
 
 // eslint-disable-next-line react/prop-types
 export const ErrorComponent = ({ error }) => (
@@ -66,7 +66,7 @@ export default function Register() {
                 .then((response) => {
                   showSuccessToast(response.data.message);
                   RoleAuth(response.data.token);
-                  localStorage.setItem("auth-token", response.data.token);
+                  document.cookie = `authToken=${response.data.token}; path=/`;
                   resetForm();
                   navigate("/sneakers");
                 })

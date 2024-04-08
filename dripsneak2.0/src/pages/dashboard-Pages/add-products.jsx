@@ -1,7 +1,7 @@
 import { Formik, Form, Field } from "formik";
-import AddproductInputs from "../../Components/AddproductInputs";
-import AddProductCheckBox from "../../Components/AddProductCheckBox";
-import AddProductsDropsown from "../../Components/AddProductsDropsown";
+import AddproductInputs from "../../Components/InputFields/AddproductInputs";
+import AddProductCheckBox from "../../Components/InputFields/AddProductCheckBox";
+import AddProductsDropsown from "../../Components/InputFields/AddProductsDropsown";
 import Addproduct2 from "./add-product2";
 import { showErrorToast, showSuccessToast } from "../../Components/Toast";
 import axios from "axios";

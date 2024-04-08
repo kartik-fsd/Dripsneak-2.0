@@ -1,7 +1,7 @@
 import { Link, useNavigate } from "react-router-dom";
 import { Formik } from "formik";
-import PasswordField from "../Components/passwordField";
-import InputBar from "../Components/inputBar";
+import PasswordField from "../Components/InputFields/passwordField";
+import InputBar from "../Components/InputFields/inputBar";
 import { ErrorComponent } from "./SignUp";
 import axios from "axios";
 import { showErrorToast, showSuccessToast } from "../Components/Toast";
@@ -61,7 +61,7 @@ export const SellerRegister = () => {
                 .then((response) => {
                   showSuccessToast(response.data.message);
                   RoleAuth(response.data.token);
-                  localStorage.setItem("auth-token", response.data.token);
+                  document.cookie = `authToken=${response.data.token}; path=/`;
                   setTimeout(() => {
                     resetForm();
                     navigate("/sneakers");

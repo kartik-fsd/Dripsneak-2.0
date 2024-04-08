@@ -20,17 +20,9 @@ const PasswordField = ({
 
   return (
     <>
-      {/* <div className="flex items-center justify-between">
-        <label
-          htmlFor={id}
-          className="block text-sm font-medium leading-6 text-gray-900"
-        >
-          {label}
-        </label>
-      </div> */}
       <label
         htmlFor={id}
-        className="block text-sm font-medium leading-6 text-gray-900"
+        className="block text-sm font-medium leading-6 text-scorpion-900"
       >
         {label}
       </label>
@@ -45,7 +37,7 @@ const PasswordField = ({
           onChange={onChange}
           onBlur={onBlur}
           required
-          className="block w-full rounded-md border-0 px-3 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-rhino-600 sm:text-sm sm:leading-6"
+          className="block w-full rounded-md border-0 px-3 py-2 text-scorpion-900 shadow-sm ring-1 ring-inset ring-scorpion-300 placeholder:text-scorpion-400 focus:ring-2 focus:ring-inset focus:ring-rhino-600 sm:text-sm sm:leading-6"
         />
         <EyeIcon
           isPasswordVisible={isPasswordVisible}
