@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 import { Disclosure } from "@headlessui/react";
 import { ChevronUpIcon } from "@heroicons/react/20/solid";
 const ProductReviews = ({ rating, reviewer, text, date }) => {
+  const firstLetter = reviewer?.charAt(0).toUpperCase();
   return (
     <>
       <Disclosure as="div" className="mt-2">
@@ -11,14 +12,12 @@ const ProductReviews = ({ rating, reviewer, text, date }) => {
             <Disclosure.Button className="flex w-full justify-between rounded-lg bg-rhino-100 px-4 py-2 text-left text-sm font-medium text-rhino-900 hover:bg-rhino-200 focus:outline-none focus-visible:ring focus-visible:ring-rhino-500/75">
               <div className="flex items-center justify-between space-x-2">
                 <div className="flex items-center space-x-2">
-                  <img
-                    className="w-10 h-10 rounded-full object-cover"
-                    src={reviewer.avatar}
-                    alt={reviewer.name}
-                  />
+                  <span className="w-10 h-10 rounded-full bg-totem-pole-300 py-2 text-white text-center font-thin">
+                    {firstLetter}
+                  </span>
 
                   <div className="text-xs  flex flex-col">
-                    <span>{reviewer.name}</span>
+                    <span>{reviewer}</span>
                     <span className="text-scorpion-400 font-thin">
                       Verified Buyer
                     </span>
@@ -106,10 +105,7 @@ const ProductReviews = ({ rating, reviewer, text, date }) => {
 };
 
 ProductReviews.propTypes = {
-  reviewer: PropTypes.shape({
-    avatar: PropTypes.string,
-    name: PropTypes.string,
-  }).isRequired,
+  reviewer: PropTypes.string.isRequired,
   rating: PropTypes.number.isRequired,
   text: PropTypes.string.isRequired,
   date: PropTypes.string.isRequired,

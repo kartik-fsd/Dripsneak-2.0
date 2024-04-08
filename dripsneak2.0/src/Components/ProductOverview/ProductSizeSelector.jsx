@@ -16,7 +16,6 @@ const ProductSizeSelector = ({ sizes }) => {
       return numA - numB; // Compare numeric suffixes
     })
   );
-  console.log(sortedUniqueData);
   return (
     <RadioGroup value={selectedSize} onChange={setSelectedSize}>
       <div className="mt-2">
@@ -72,7 +71,7 @@ const ProductSizeSelector = ({ sizes }) => {
 };
 
 ProductSizeSelector.propTypes = {
-  sizes: PropTypes.number.isRequired,
+  sizes: PropTypes.array.isRequired,
 };
 
 export default ProductSizeSelector;
