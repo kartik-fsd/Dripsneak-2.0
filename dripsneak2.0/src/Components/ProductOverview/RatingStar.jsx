@@ -30,7 +30,7 @@ export const renderRatingStars = (rating) => {
         viewBox="0 0 24 24"
         strokeWidth="1.5"
         stroke="currentColor"
-        className="w-5 h-5 text-gray-300 me-1 dark:text-gray-500"
+        className="w-5 h-5 text-scorpion-300 me-1 dark:text-scorpion-500"
       >
         <path
           strokeLinecap="round"
@@ -44,7 +44,7 @@ export const renderRatingStars = (rating) => {
   return (
     <div className="flex items-center">
       {stars}
-      <p className="ms-1 text-sm font-medium text-gray-500 dark:text-gray-400">
+      <p className="ms-1 text-sm font-medium text-scorpion-500 dark:text-scorpion-400">
         {rating?.toFixed(2)} {/* Display rating with two decimal places */}
       </p>
     </div>

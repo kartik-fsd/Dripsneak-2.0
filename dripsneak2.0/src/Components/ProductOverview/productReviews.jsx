@@ -6,11 +6,11 @@ const ProductReviews = ({ rating, reviewer, text, date }) => {
   const firstLetter = reviewer?.charAt(0).toUpperCase();
   return (
     <>
-      <Disclosure as="div" className="mt-2">
+      <Disclosure as="div" className="mt-2" defaultOpen={open}>
         {({ open }) => (
           <>
-            <Disclosure.Button className="flex w-full justify-between rounded-lg bg-rhino-100 px-4 py-2 text-left text-sm font-medium text-rhino-900 hover:bg-rhino-200 focus:outline-none focus-visible:ring focus-visible:ring-rhino-500/75">
-              <div className="flex items-center justify-between space-x-2">
+            <Disclosure.Button className="flex w-full justify-between items-center space-x-3 rounded-lg bg-rhino-100 px-2 py-2 text-left text-sm font-medium text-rhino-900 hover:bg-rhino-200 focus:outline-none focus-visible:ring focus-visible:ring-rhino-500/75">
+              <div className="flex items-center justify-between space-x-5">
                 <div className="flex items-center space-x-2">
                   <span className="w-10 h-10 rounded-full bg-totem-pole-300 py-2 text-white text-center font-thin">
                     {firstLetter}
@@ -68,7 +68,7 @@ const ProductReviews = ({ rating, reviewer, text, date }) => {
             </Disclosure.Button>
             <Disclosure.Panel className="px-4 pb-2 pt-4 text-sm text-scorpion-500">
               <p className="text-sm font-light break-words">{text}</p>
-              <div className="flex items-center justify-between text-xs text-gray-500 space-x-2">
+              <div className="flex items-center justify-between text-xs text-scorpion-500 space-x-2 space-y-2 mt-2">
                 <span>{date}</span>
 
                 <div className="flex items-center justify-between text-scorpion-600 fill-current">

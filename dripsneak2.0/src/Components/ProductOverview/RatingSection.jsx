@@ -1,22 +1,53 @@
-const RatingSection = () => {
-  const ratingsData = [
-    { stars: 5, percentage: 70 },
-    { stars: 4, percentage: 17 },
-    { stars: 3, percentage: 8 },
-    { stars: 2, percentage: 4 },
-    { stars: 1, percentage: 1 },
-  ];
+import PropTypes from "prop-types";
+const RatingSection = ({ reviews }) => {
+  function calculateRatingPercentages(reviews) {
+    // Initialize an object to store the count of each rating
+    const ratingCounts = {
+      5: 0,
+      4: 0,
+      3: 0,
+      2: 0,
+      1: 0,
+    };
 
-  const calculateAverageRating = () => {
-    const totalRatings = ratingsData.reduce(
-      (acc, rating) => acc + rating.percentage,
+    // Count the occurrences of each rating
+    reviews.forEach((review) => {
+      ratingCounts[review.rating]++;
+    });
+
+    // Calculate the total number of reviews
+    const totalReviews = reviews.length;
+
+    // Calculate the percentage for each rating
+    const ratingPercentages = Object.entries(ratingCounts).map(
+      ([stars, count]) => ({
+        stars: parseInt(stars),
+        percentage: Math.round((count / totalReviews) * 100),
+      })
+    );
+
+    return ratingPercentages;
+  }
+
+  function calculateAverageRating(reviews) {
+    // Check if there are any reviews
+    if (reviews.length === 0) {
+      return 0; // Return 0 if there are no reviews
+    }
+
+    // Calculate the sum of all ratings
+    const sumOfRatings = reviews.reduce(
+      (total, review) => total + review.rating,
       0
     );
-    const totalStars = ratingsData.length * 5;
-    return (totalRatings / totalStars) * 5;
-  };
 
-  const averageRating = calculateAverageRating();
+    // Calculate the average rating
+    const averageRating = sumOfRatings / reviews.length;
+
+    // Round the average rating to 1 decimal place
+    return Math.round(averageRating * 10) / 10;
+  }
+  console.table(calculateAverageRating(reviews));
   return (
     <div className="px-4 py-6 flex flex-col items-center gap-4">
       <div className="flex flex-col items-center justify-between text-sm font-medium">
@@ -36,15 +67,15 @@ const RatingSection = () => {
             />
           </svg>
           <span className="ml-2 text-lg">
-            {averageRating.toFixed(1)} out of 5
+            {calculateAverageRating(reviews)}
           </span>
         </div>
         <span className="text-scorpion-500 dark:text-scorpion-400">
-          1,745 global ratings
+          {reviews.length} global ratings
         </span>
       </div>
       <div className="w-max">
-        {ratingsData.map((rating, index) => (
+        {calculateRatingPercentages(reviews).map((rating, index) => (
           <div
             key={index}
             className="flex items-center justify-center space-y-3"
@@ -85,5 +116,7 @@ const RatingSection = () => {
     </div>
   );
 };
-
+RatingSection.propTypes = {
+  reviews: PropTypes.object.isRequired,
+};
 export default RatingSection;

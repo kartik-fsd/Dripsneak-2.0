@@ -107,7 +107,7 @@ function ProductDetails({ data, handleButtonClick, isClicked }) {
         </div>
       </div>
       <hr className="h-px my-8 mx-2 text-scorpion-200 border" />
-      {product && <ProductReviewRatingSections productId={product.id} />}
+      {product && <ProductReviewRatingSections product={product} />}
     </section>
   );
 }
