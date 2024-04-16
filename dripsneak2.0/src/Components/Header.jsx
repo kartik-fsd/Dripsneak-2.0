@@ -39,8 +39,8 @@ export default function Header() {
   };
   return (
     <>
-      <div className="min-h-full">
-        <Disclosure as="nav" className="bg-rhino-800">
+      <div className="min-h-full ">
+        <Disclosure as="nav" className="bg-rhino-800 fixed top-0 z-10 w-full">
           {({ open }) => (
             <>
               <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
@@ -70,35 +70,6 @@ export default function Header() {
                   </div>
 
                   {/* Search Bar */}
-                  {/* <div className="flex">
-                    <div className="pt-2 relative mx-auto text-gray-600 ml-4  md:ml-6">
-                      <input
-                        className="border-2 border-gray-300 bg-scorpion-100 text-scorpion-700 h-10 px-5 pr-16 rounded-lg text-sm focus:outline-none border-none w-full md:w-64"
-                        type="search"
-                        name="search"
-                        placeholder="Search"
-                      />
-                      <button
-                        type="submit"
-                        className="absolute right-0 top-0 mt-5 mr-4"
-                      >
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          fill="none"
-                          viewBox="0 0 24 24"
-                          strokeWidth={2}
-                          stroke="currentColor"
-                          className="text-scorpion-950 h-4 w-5"
-                        >
-                          <path
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z"
-                          />
-                        </svg>
-                      </button>
-                    </div>
-                  </div> */}
                   <SearchBar />
                   <div className="hidden md:block">
                     <div className="ml-4 flex items-center space-x-5 md:ml-6">

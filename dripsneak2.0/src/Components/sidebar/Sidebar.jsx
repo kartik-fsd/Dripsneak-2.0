@@ -20,7 +20,7 @@ function Sidebar({ mobileFiltersOpen, setMobileFiltersOpen, sort, setSort }) {
   };
 
   return (
-    <div className="bg-scorpion-50">
+    <div className="bg-scorpion-50 pt-16">
       {/* Mobile filter dialog */}
       <Transition.Root show={mobileFiltersOpen} as={Fragment}>
         <Dialog

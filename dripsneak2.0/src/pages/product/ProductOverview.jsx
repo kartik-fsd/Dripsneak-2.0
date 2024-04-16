@@ -47,7 +47,7 @@ export default function ProductOverview() {
   }
 
   return (
-    <>
+    <main className="pt-16">
       <Breadcrumbs />
 
       <ProductDetails
@@ -55,7 +55,7 @@ export default function ProductOverview() {
         handleButtonClick={handleButtonClick}
         isClicked={isClicked}
       />
-    </>
+    </main>
   );
 }
 
@@ -64,7 +64,7 @@ function ProductDetails({ data, handleButtonClick, isClicked }) {
 
   return (
     <section className="text-scorpion-900 overflow-hidden bg-scorpion-50">
-      <div className="container px-5 py-12 mx-auto flex flex-col lg:flex-row items-center">
+      <div className="container p-5 mx-auto flex flex-col lg:flex-row items-center">
         <div className="lg:w-1/2 flex justify-center mb-12 lg:mb-0">
           <img
             alt={product?.name}
@@ -106,7 +106,7 @@ function ProductDetails({ data, handleButtonClick, isClicked }) {
           />
         </div>
       </div>
-      <hr className="h-px my-8 mx-2 text-scorpion-200 border" />
+      <hr className="h-px my-8 mx-2 px-8 text-scorpion-200 border" />
       {product && <ProductReviewRatingSections product={product} />}
     </section>
   );

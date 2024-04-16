@@ -32,7 +32,7 @@ function ProductListPages() {
             </form>
 
             {/* Product grid */}
-            <div className="lg:col-span-3">
+            <div className="lg:col-span-3 ">
               <Breadcrumbs />
               <ProductList sort={sort} />
             </div>
