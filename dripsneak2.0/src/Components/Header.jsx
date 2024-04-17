@@ -12,6 +12,7 @@ import Cart from "../pages/dashboard-Pages/Cart";
 import axios from "axios";
 import { navigation, user, userNavigation } from "../assets/data";
 import SearchBar from "./Search/Search";
+import { User_URL } from "../utils/GlobalUrls";
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
@@ -20,13 +21,14 @@ function classNames(...classes) {
 export default function Header() {
   const [openCart, setOpen] = useState(false);
   const navigate = useNavigate();
+  const url = User_URL + "logout";
   const logout = async () => {
     try {
       // Remove authToken from localStorage
       localStorage.removeItem("auth-token");
       localStorage.removeItem("role");
       // Call logout endpoint on the server
-      await axios.post("http://localhost:3000/user/logout");
+      await axios.post(url);
       // Redirect to signin page
       navigate("/signin");
       console.log("del");

@@ -3,6 +3,7 @@ import { useQuery } from "@tanstack/react-query";
 import useDebounce from "../../hook/useDebounce";
 import { useProductContext } from "../../context/useMyContext";
 import { useNavigate } from "react-router-dom";
+import { Product_URL } from "../../utils/GlobalUrls";
 
 const SearchBar = () => {
   const [searchQuery, setSearchQuery] = useState("");
@@ -12,15 +13,13 @@ const SearchBar = () => {
 
   const debouncedValue = useDebounce(searchQuery, 300);
   const { setProduct } = useProductContext();
+  const url = Product_URL + "search";
 
   const { isLoading, error, data, refetch } = useQuery({
     queryKey: ["products", debouncedValue], // Unique query key
     queryFn: () => {
-      console.log("fetching");
       if (debouncedValue) {
-        return fetch(
-          `http://localhost:3000/product/search?query=${searchQuery}`
-        ).then((res) => res.json());
+        return fetch(url + `?query=${searchQuery}`).then((res) => res.json());
       }
       return null;
     },

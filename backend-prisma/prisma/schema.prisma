@@ -98,8 +98,9 @@ model Profile {
   userId          String   @unique
   dateOfBirth     DateTime
   shippingAddress String
-  billingAddress  String
   pincode         Int
+  profileImg      String?
+  phoneNumber     String
   orders          Order[]  @relation(name: "UserOrderProducts")
 }
 

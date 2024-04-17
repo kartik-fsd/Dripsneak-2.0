@@ -56,7 +56,9 @@ export const Routers = () => {
         {/* Unauthorized Access Route */}
         <Route
           path="/unauthorized"
-          element={<p>You are not authorized to access this page.</p>}
+          element={
+            <p className="pt-16">You are not authorized to access this page.</p>
+          }
         />
       </Routes>
     </>

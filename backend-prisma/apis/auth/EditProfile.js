@@ -16,6 +16,8 @@ router.put("/edit-profile", authorizedUser, async (req, res) => {
     shippingAddress,
     billingAddress,
     pincode,
+    phoneNumber,
+    profileImg,
   } = req.body;
 
   try {
@@ -38,6 +40,8 @@ router.put("/edit-profile", authorizedUser, async (req, res) => {
     });
 
     const updateData = {
+      profileImg,
+      phoneNumber,
       dateOfBirth,
       shippingAddress,
       billingAddress,

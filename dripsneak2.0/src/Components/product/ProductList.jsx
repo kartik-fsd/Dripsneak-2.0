@@ -8,11 +8,11 @@ import { useProductContext } from "../../context/useMyContext";
 import ProductCardDetails from "./ProductCard";
 import { CircularPagination } from "../Pagination";
 import scrollTop from "../../utils/scrollTopNav";
+import { Product_URL } from "../../utils/GlobalUrls";
 
 const fetchData = async () => {
-  return await fetch("http://localhost:3000/product/all-products").then(
-    (response) => response.json()
-  );
+  const url = Product_URL + "all-products";
+  return await fetch(url).then((response) => response.json());
 };
 
 export default function ProductList({ sort }) {

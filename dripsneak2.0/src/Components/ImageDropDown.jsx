@@ -1,14 +1,10 @@
-import axios from "axios";
-import Compressor from "compressorjs";
 import { useState } from "react";
-import { showErrorToast, showSuccessToast } from "./Toast";
-import { useFormikContext } from "formik";
+import useImageUploader from "../utils/ImageUpload";
 
 const ImageDropDown = () => {
   const [files, setFiles] = useState([]);
   const [message, setMessage] = useState("");
   const [loading, setLoading] = useState(false);
-  const { setFieldValue } = useFormikContext();
 
   const handleFile = async (e) => {
     setMessage("");
@@ -36,56 +32,15 @@ const ImageDropDown = () => {
     setFiles(files.filter((file) => file.name !== name));
   };
 
-  const compressAndUploadImages = async () => {
-    setLoading(true);
-    try {
-      const compressed = await Promise.all(
-        files.map((file) => {
-          return new Promise((resolve) => {
-            new Compressor(file, {
-              quality: 0.6,
-              success: (result) => {
-                resolve(result);
-              },
-              error: (err) => {
-                console.error(err.message);
-                resolve(file); // fallback to the original file if compression fails
-              },
-            });
-          });
-        })
-      );
-
-      // Upload compressed images to Cloudinary
-      const cloudinaryUrls = await Promise.all(
-        compressed.map(async (file) => {
-          const formData = new FormData();
-          formData.append("file", file);
-          formData.append("upload_preset", "dripnseak_preset_");
-
-          const response = await axios.post(
-            "https://api.cloudinary.com/v1_1/drinpsneak/image/upload",
-            formData,
-            {
-              headers: {
-                "Content-Type": "multipart/form-data",
-              },
-            }
-          );
-
-          return response.data.secure_url;
-        })
-      );
-      setFieldValue("img", cloudinaryUrls);
-      showSuccessToast("Images uploaded successfully");
-    } catch (error) {
-      console.error("Error uploading images:", error);
-      showErrorToast("Error uploading images");
-    } finally {
-      setLoading(false);
-      setFiles([]);
-    }
-  };
+  let toastMsg = "Images uploaded successfully";
+  let ErrorMsg = "Error uploading images";
+  const { compressAndUploadImages } = useImageUploader(
+    files,
+    setFiles,
+    setLoading,
+    toastMsg,
+    ErrorMsg
+  );
 
   return (
     <>

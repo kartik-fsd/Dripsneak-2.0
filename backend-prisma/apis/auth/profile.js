@@ -8,8 +8,14 @@ const router = Router();
 const prisma = new PrismaClient();
 const JWT_SECRET_KEY = process.env.JWT_SECRET_KEY;
 router.post("/add-profile", authorizedUser, async (req, res) => {
-  const { profileImg, dateOfBirth, shippingAddress, billingAddress, pincode } =
-    req.body;
+  const {
+    profileImg,
+    dateOfBirth,
+    shippingAddress,
+    billingAddress,
+    pincode,
+    phoneNumber,
+  } = req.body;
 
   // Extract seller ID from the user object provided by the middleware
   const userId = req.user.userId;
@@ -21,6 +27,7 @@ router.post("/add-profile", authorizedUser, async (req, res) => {
         dateOfBirth: new Date(dateOfBirth),
         shippingAddress,
         billingAddress,
+        phoneNumber,
         pincode: parseInt(pincode),
       },
     });

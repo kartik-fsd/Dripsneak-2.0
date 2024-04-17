@@ -5,6 +5,7 @@ import axios from "axios";
 import { useCallback, useEffect, useState } from "react";
 import TextField from "../../Components/InputFields/TextField";
 import { showErrorToast, showSuccessToast } from "../../Components/Toast";
+import { User_URL } from "../../utils/GlobalUrls";
 
 function Profile() {
   const initialState = {
@@ -87,10 +88,8 @@ function Profile() {
           Authorization: `Bearer ${localStorage.getItem("auth-token")}`,
         },
       };
-      const response = await axios.get(
-        "http://localhost:3000/user/profile",
-        header
-      );
+      const url = User_URL + "profile";
+      const response = await axios.get(url, header);
       const {
         firstName,
         lastName,
@@ -133,11 +132,8 @@ function Profile() {
           Authorization: `Bearer ${localStorage.getItem("auth-token")}`,
         },
       };
-      const response = await axios.put(
-        "http://localhost:3000/user/edit-profile",
-        values,
-        header
-      );
+      const url = User_URL + "edit-profile";
+      const response = await axios.put(url, values, header);
       console.log("Data submitted successfully");
       showSuccessToast(response.data.message);
       setEditable({

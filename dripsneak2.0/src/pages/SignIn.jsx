@@ -7,6 +7,7 @@ import { showErrorToast, showSuccessToast } from "../Components/Toast";
 import axios from "axios";
 import { RoleAuth } from "../utils/tokenRoleAuth";
 import Spinner from "../Components/loader/Spinner";
+import { Auth_URL } from "../utils/GlobalUrls";
 
 export default function SignIn() {
   const navigate = useNavigate();
@@ -40,9 +41,10 @@ export default function SignIn() {
               return errors;
             }}
             onSubmit={(values, { setSubmitting, resetForm }) => {
+              const url = Auth_URL + "login";
               // eslint-disable-next-line no-unused-vars
               axios
-                .post("http://localhost:3000/auth/login", values)
+                .post(url, values)
                 .then((response) => {
                   showSuccessToast(response.data.message);
                   RoleAuth(response.data.token);

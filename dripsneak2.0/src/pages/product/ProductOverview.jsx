@@ -11,10 +11,12 @@ import Breadcrumbs from "../../Components/Breadcrumbs";
 import PropTypes from "prop-types";
 import ProductMeta from "../../Components/ProductOverview/ProductMeta";
 import ProductRating from "../../Components/ProductOverview/RatingIndex";
+import { Product_URL } from "../../utils/GlobalUrls";
 
 export default function ProductOverview() {
   const { productId } = useParams();
   const [isClicked, setIsClicked] = useState(false);
+  const url = Product_URL + "detail";
 
   // Scroll to the top of the page when product view opens
   scrollTop();
@@ -24,9 +26,7 @@ export default function ProductOverview() {
   };
 
   const fetchProductDetail = async () => {
-    const response = await fetch(
-      `http://localhost:3000/product/detail?productId=${productId}`
-    );
+    const response = await fetch(url + `?productId=${productId}`);
     if (!response.ok) {
       throw new Error("Network response was not ok");
     }

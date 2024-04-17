@@ -39,7 +39,9 @@ router.get("/profile", authorizedUser, async (req, res) => {
       firstName: userDetails.firstName,
       lastName: userDetails.lastName,
       email: userDetails.email,
+      profileImg: profile.profileImg,
       dateOfBirth: profile?.dateOfBirth, // Convert date to ISO string
+      phoneNumber: profile?.phoneNumber,
       shippingAddress: profile?.shippingAddress,
       billingAddress: profile?.billingAddress,
       pincode: profile?.pincode,

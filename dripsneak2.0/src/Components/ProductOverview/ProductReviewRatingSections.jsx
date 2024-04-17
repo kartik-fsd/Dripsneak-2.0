@@ -3,11 +3,13 @@ import RatingSection from "./RatingSection";
 import ProductReviews from "./productReviews";
 import PropTypes from "prop-types";
 import { useNavigate } from "react-router-dom";
+import { Product_URL } from "../../utils/GlobalUrls";
 function ProductReviewRatingSections({ product }) {
   const { id } = product;
   const navigate = useNavigate();
+  const url = Product_URL + "reviews";
   const fetchProductReviews = async () => {
-    const response = await fetch(`http://localhost:3000/product/reviews/${id}`);
+    const response = await fetch(url + `/${id}`);
     if (!response.ok) {
       throw new Error("Network response was not ok");
     }

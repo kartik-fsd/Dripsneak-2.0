@@ -6,6 +6,7 @@ import { ErrorComponent } from "./SignUp";
 import axios from "axios";
 import { showErrorToast, showSuccessToast } from "../Components/Toast";
 import { RoleAuth } from "../utils/tokenRoleAuth";
+import { Auth_URL } from "../utils/GlobalUrls";
 
 export const SellerRegister = () => {
   const navigate = useNavigate();
@@ -56,8 +57,9 @@ export const SellerRegister = () => {
             onSubmit={(values, { setSubmitting, resetForm }) => {
               // eslint-disable-next-line no-unused-vars
               const { confirmPassword, ...requestData } = values;
+              const url = Auth_URL + "register";
               axios
-                .post("http://localhost:3000/auth/register", requestData)
+                .post(url, requestData)
                 .then((response) => {
                   showSuccessToast(response.data.message);
                   RoleAuth(response.data.token);

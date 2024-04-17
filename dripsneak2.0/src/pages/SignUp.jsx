@@ -6,6 +6,7 @@ import { showErrorToast, showSuccessToast } from "../Components/Toast";
 import { RoleAuth } from "../utils/tokenRoleAuth";
 import Spinner from "../Components/loader/Spinner";
 import PasswordField from "../Components/InputFields/passwordField";
+import { Auth_URL } from "../utils/GlobalUrls";
 
 // eslint-disable-next-line react/prop-types
 export const ErrorComponent = ({ error }) => (
@@ -61,8 +62,9 @@ export default function Register() {
             onSubmit={(values, { setSubmitting, resetForm }) => {
               // eslint-disable-next-line no-unused-vars
               const { confirmPassword, ...requestData } = values;
+              const url = Auth_URL + "register";
               axios
-                .post("http://localhost:3000/auth/register", requestData)
+                .post(url, requestData)
                 .then((response) => {
                   showSuccessToast(response.data.message);
                   RoleAuth(response.data.token);

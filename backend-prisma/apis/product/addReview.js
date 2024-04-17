@@ -39,6 +39,12 @@ router.post("/review/:productId", authorizedUser, async (req, res) => {
       },
     });
 
+    // Calculate rating counts for each rating value (1-5)
+    const ratingCounts = reviews.reduce((acc, review) => {
+      acc[review.rating] = (acc[review.rating] || 0) + 1;
+      return acc;
+    }, {});
+
     // Update product's rating and review count
     const reviews = await prisma.review.findMany({
       where: { productId },
@@ -51,7 +57,7 @@ router.post("/review/:productId", authorizedUser, async (req, res) => {
     await prisma.product.update({
       where: { id: productId },
       data: {
-        ratings: reviews.length,
+        ratings: ratingCounts,
         avgRating: parseFloat(averageRating.toFixed(2)),
         reviews: reviews.length,
       },

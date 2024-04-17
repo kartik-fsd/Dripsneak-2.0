@@ -5,6 +5,7 @@ import AddProductsDropsown from "../../Components/InputFields/AddProductsDropsow
 import Addproduct2 from "./add-product2";
 import { showErrorToast, showSuccessToast } from "../../Components/Toast";
 import axios from "axios";
+import { Product_URL } from "../../utils/GlobalUrls";
 
 const initialValues = {
   name: "",
@@ -63,7 +64,7 @@ const ProductForm = () => {
 
   const handleSubmit = (values, { setSubmitting, resetForm }) => {
     // Handle form submission
-
+    const url = Product_URL + "create-product";
     const header = {
       withCredentials: true,
       headers: {
@@ -73,7 +74,7 @@ const ProductForm = () => {
     };
 
     axios
-      .post("http://localhost:3000/product/create-product", values, header)
+      .post(url, values, header)
       .then((response) => {
         showSuccessToast(response.data.message);
         setTimeout(() => {
@@ -91,7 +92,7 @@ const ProductForm = () => {
   };
 
   return (
-    <main className="min-h-screen flex flex-col items-center justify-center space-y-4">
+    <main className="min-h-screen flex flex-col items-center justify-center space-y-4 pt-16">
       <Formik
         initialValues={initialValues}
         //validationSchema={validationSchema}
